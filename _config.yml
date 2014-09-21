@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: NSTiger
 subtitle:
 description:
-author: John Doe
-email:
-language:
+author: Tiger Chen
+email: yihu2013@gmail.com
+language: zh-CN
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
