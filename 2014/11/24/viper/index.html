@@ -3,17 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: XCode | NSTiger</title>
+  <title>VIPER 架构探浅 | NSTiger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="NSTiger">
-<meta property="og:url" content="http://yoursite.com/tags/XCode/">
+  <meta name="description" content="通常，我们会使用 MVC 来构建应用，MVC 强调代码的分层原则，按照不同的逻辑分为模型，控制器，视图 三部分，但是这是个很粗糙的分层，所以很多情况下，MVC 并没有被很好的实践，以至于 C 里面塞入了大量的代码，最后变成 Massive View Controller
+在 objc.io 上看到一个非常好的架构，似乎解决了这个问题这个架构称为 VIPER，即 视图，交互器，展示器，实体，路由。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VIPER 架构探浅">
+<meta property="og:url" content="http://yoursite.com/2014/11/24/viper/">
 <meta property="og:site_name" content="NSTiger">
-<meta property="og:description">
+<meta property="og:description" content="通常，我们会使用 MVC 来构建应用，MVC 强调代码的分层原则，按照不同的逻辑分为模型，控制器，视图 三部分，但是这是个很粗糙的分层，所以很多情况下，MVC 并没有被很好的实践，以至于 C 里面塞入了大量的代码，最后变成 Massive View Controller
+在 objc.io 上看到一个非常好的架构，似乎解决了这个问题这个架构称为 VIPER，即 视图，交互器，展示器，实体，路由。">
+<meta property="og:image" content="/img/viper-wireframe.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NSTiger">
-<meta name="twitter:description">
+<meta name="twitter:title" content="VIPER 架构探浅">
+<meta name="twitter:description" content="通常，我们会使用 MVC 来构建应用，MVC 强调代码的分层原则，按照不同的逻辑分为模型，控制器，视图 三部分，但是这是个很粗糙的分层，所以很多情况下，MVC 并没有被很好的实践，以至于 C 里面塞入了大量的代码，最后变成 Massive View Controller
+在 objc.io 上看到一个非常好的架构，似乎解决了这个问题这个架构称为 VIPER，即 视图，交互器，展示器，实体，路由。">
 
   
     <link rel="alternative" href="/atom.xml" title="NSTiger" type="application/atom+xml">
@@ -60,12 +64,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-swift-mark" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-viper" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/09/22/swift-mark/" class="article-date">
-  <time datetime="2014-09-21T17:27:10.000Z" itemprop="datePublished">9月 22 2014</time>
+    <a href="/2014/11/24/viper/" class="article-date">
+  <time datetime="2014-11-23T17:06:50.000Z" itemprop="datePublished">11月 24 2014</time>
 </a>
     
   </div>
@@ -75,8 +77,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/22/swift-mark/">Swift 中的标记</a>
+    <h1 class="article-title" itemprop="name">
+      VIPER 架构探浅
     </h1>
   
 
@@ -84,37 +86,41 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在 Objective-C 中 我们使用 #pragma mark 来分割代码，并且使IDE支持跳转</p>
-<figure class="highlight Objective-C"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor">#pragma mark – Initialization </span></div><div class="line">code <span class="keyword">here</span>...</div><div class="line"> </div><div class="line"><span class="preprocessor">#pragma mark – Table Management</span></div><div class="line">more code <span class="keyword">here</span>...</div></pre></td></tr></table></figure>
-
-<p><img src="/img/xcode-mark.png" alt="xcode-mark"></p>
-<p>那么在 Swift 中我们如何实现类似的效果呢？<br>答案是 // MARK: 这个 XCode6 新引入的特性</p>
-<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MARK: - Initialization</span></div><div class="line">code here...</div><div class="line"> </div><div class="line"><span class="comment">// MARK: - View Management</span></div><div class="line">more code here...</div></pre></td></tr></table></figure>
-
-<p>在 Swift 中我们同样也可以使用 // TODO: 以及 // FIXME:</p>
-<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span></span> viewDidLoad()</div><div class="line">{</div><div class="line">  <span class="keyword">super</span>.viewDidLoad()</div><div class="line"> </div><div class="line">  <span class="comment">// TODO: add configuration code</span></div><div class="line">  <span class="keyword">self</span>.configureView()</div><div class="line">}</div></pre></td></tr></table></figure>
-
-<p><img src="/img/xcode-todo.png" alt="xcode-todo"></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell</div><div class="line">{</div><div class="line">  <span class="comment">// FIXME: bug 2102</span></div><div class="line">  <span class="keyword">let</span> cell = tableView.dequeueReusableCellWithIdentifier(<span class="string">"Cell"</span>, forIndexPath: indexPath) <span class="keyword">as</span> UITableViewCell</div><div class="line">  <span class="keyword">let</span> <span class="keyword">object</span> = objects[indexPath.row] <span class="keyword">as</span> NSDate</div><div class="line">  cell.textLabel.text = <span class="keyword">object</span>.description</div><div class="line">  <span class="keyword">return</span> cell</div><div class="line">}</div></pre></td></tr></table></figure>
-
-<p><img src="/img/xcode-fixme.png" alt="xcode-fixme"></p>
+        <p>通常，我们会使用 MVC 来构建应用，MVC 强调代码的分层原则，按照不同的逻辑分为模型，控制器，视图 三部分，但是这是个很粗糙的分层，所以很多情况下，MVC 并没有被很好的实践，以至于 C 里面塞入了大量的代码，最后变成 Massive View Controller</p>
+<p>在 objc.io 上看到一个非常好的架构，似乎解决了这个问题<br>这个架构称为 VIPER，即 视图，交互器，展示器，实体，路由。</p>
+<ul>
+<li>视图：根据展示器的要求显示界面，并将用户输入反馈给展示器。</li>
+<li>交互器：包含由用例指定的业务逻辑。</li>
+<li>展示器：包含为显示（从交互器接受的内容）做的准备工作的相关视图逻辑，并对用户输入进行反馈（从交互器获取新数据）。</li>
+<li>实体：包含交互器要使用的基本模型对象。</li>
+<li>路由：包含用来描述屏幕显示和显示顺序的导航逻辑。</li>
+</ul>
+<p>实际上是精心设计过的 MVC 架构，只是进行了更好的拆解。</p>
+<p><img src="/img/viper-wireframe.png" alt="viper-wireframe"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/09/22/swift-mark/" data-id="ntaoe33ezgsp7tfd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/11/24/viper/" data-id="tijp8lcvyt4ln5xr" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XCode/">XCode</a></li></ul>
-
     </footer>
   </div>
   
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2014/11/16/language-and-mind/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">语言与思维</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-
-  
-  
 </section>
         
           <aside id="sidebar">
