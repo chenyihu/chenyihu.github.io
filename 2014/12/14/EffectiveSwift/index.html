@@ -3,17 +3,62 @@
 <head>
   <meta charset="utf-8">
   
-  <title>开写博客了 | NSTiger</title>
+  <title>Swift 最佳实践 | NSTiger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="如题。">
+  <meta name="description" content="本文内容总结自 iOSCon2014 李建中老师讲演
+
+结构
+
+结构是值类型，所以在任何结构传递的地方都会触发复制，需要谨慎使用
+不要在结构中引用 Class 这样会破坏结构体的轻量和线程安全特性注：这里我还是有点异议的，在享元模式中可以非常好的套用到这个情形
+谨慎使用多层 Class
+
+数组
+
+数组和字符串具有可变成本，尽可能使用 let
+
+对象
+
+明确指定变量和常量类型，减少类型推断
+尽可能将">
 <meta property="og:type" content="article">
-<meta property="og:title" content="开写博客了">
-<meta property="og:url" content="http://yoursite.com/2014/09/21/first-blog/">
+<meta property="og:title" content="Swift 最佳实践">
+<meta property="og:url" content="http://yoursite.com/2014/12/14/EffectiveSwift/">
 <meta property="og:site_name" content="NSTiger">
-<meta property="og:description" content="如题。">
+<meta property="og:description" content="本文内容总结自 iOSCon2014 李建中老师讲演
+
+结构
+
+结构是值类型，所以在任何结构传递的地方都会触发复制，需要谨慎使用
+不要在结构中引用 Class 这样会破坏结构体的轻量和线程安全特性注：这里我还是有点异议的，在享元模式中可以非常好的套用到这个情形
+谨慎使用多层 Class
+
+数组
+
+数组和字符串具有可变成本，尽可能使用 let
+
+对象
+
+明确指定变量和常量类型，减少类型推断
+尽可能将">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开写博客了">
-<meta name="twitter:description" content="如题。">
+<meta name="twitter:title" content="Swift 最佳实践">
+<meta name="twitter:description" content="本文内容总结自 iOSCon2014 李建中老师讲演
+
+结构
+
+结构是值类型，所以在任何结构传递的地方都会触发复制，需要谨慎使用
+不要在结构中引用 Class 这样会破坏结构体的轻量和线程安全特性注：这里我还是有点异议的，在享元模式中可以非常好的套用到这个情形
+谨慎使用多层 Class
+
+数组
+
+数组和字符串具有可变成本，尽可能使用 let
+
+对象
+
+明确指定变量和常量类型，减少类型推断
+尽可能将">
 
   
     <link rel="alternative" href="/atom.xml" title="NSTiger" type="application/atom+xml">
@@ -60,10 +105,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-first-blog" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-EffectiveSwift" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/09/21/first-blog/" class="article-date">
-  <time datetime="2014-09-20T18:54:07.000Z" itemprop="datePublished">9月 21 2014</time>
+    <a href="/2014/12/14/EffectiveSwift/" class="article-date">
+  <time datetime="2014-12-14T14:32:55.000Z" itemprop="datePublished">12月 14 2014</time>
 </a>
     
   </div>
@@ -74,7 +119,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      开写博客了
+      Swift 最佳实践
     </h1>
   
 
@@ -82,12 +127,38 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>如题。</p>
+        <p>本文内容总结自 iOSCon2014 李建中老师讲演</p>
+<ol>
+<li>结构</li>
+</ol>
+<p>结构是值类型，所以在任何结构传递的地方都会触发复制，需要谨慎使用</p>
+<p>不要在结构中引用 Class 这样会破坏结构体的轻量和线程安全特性<br>注：这里我还是有点异议的，在享元模式中可以非常好的套用到这个情形</p>
+<p>谨慎使用多层 Class</p>
+<ol>
+<li>数组</li>
+</ol>
+<p>数组和字符串具有可变成本，尽可能使用 let</p>
+<ol>
+<li>对象</li>
+</ol>
+<p>明确指定变量和常量类型，减少类型推断</p>
+<p>尽可能将对象声明为可选值类型，这样可以显性的去释放内存</p>
+<p>区分值相等 == != 和引用相等 === !===</p>
+<p>谨慎使用类型扩展</p>
+<p>较大自定义类型使用延迟存储属性</p>
+<p>仅在需要释放资源时才定义析构器</p>
+<p>析构过程尽可能短</p>
+<p>尽早将可选类型设置为空</p>
+<p>谨慎创建全局对象</p>
+<ol>
+<li>内存管理</li>
+</ol>
+<p>避免循环强引用</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/09/21/first-blog/" data-id="j4qas4awtztmfan9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/12/14/EffectiveSwift/" data-id="p44wfshqhussbxkq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,15 +167,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2014/09/22/swift-mark/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Swift 中的标记
-        
-      </div>
-    </a>
   
+    <a href="/2014/12/07/iOSCon/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">iOSCon 2014 大会整理</div>
+    </a>
   
 </nav>
 

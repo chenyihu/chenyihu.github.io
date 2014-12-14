@@ -62,6 +62,71 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-swift-rac" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/28/swift-rac/" class="article-date">
+  <time datetime="2014-09-28T10:07:27.000Z" itemprop="datePublished">9月 28 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/28/swift-rac/">在 Swift 项目中集成 ReactiveCocoa (一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="安装_ReactiveCocoa">安装 ReactiveCocoa</h2>
+<p>最简单的就是使用 Cocoapods 了。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">pod</span> <span class="string">'ReactiveCocoa'</span></div></pre></td></tr></table></figure>
+
+<p>但是由于 ReactiveCocoa 目前尚未对 Swift 做原生支持，所以我们需要使用桥接的模式来使用。把 #import <reactivecocoa reactivecocoa.h=""> 放入 Briging Header。然后我们就可以开心的使用啦。</reactivecocoa></p>
+<h2 id="Sequence">Sequence</h2>
+<p>ReactiveCocoa 对 ObjC 容器类提供了 Sequence 扩展。如下</p>
+<figure class="highlight Objective-C"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">RACSignal *letters = [<span class="string">@"A B C D E F G H I"</span> componentsSeparatedByString:<span class="string">@" "</span>]<span class="variable">.rac_sequence</span><span class="variable">.signal</span>;</div><div class="line"></div><div class="line"><span class="comment">// 依次输出 A B C D…</span></div><div class="line">[letters subscribeNext:^(<span class="built_in">NSString</span> *x) {</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, x);</div><div class="line">}];</div></pre></td></tr></table></figure>
+
+<p>但是到了 Swift 世界，Array 和 NSArray 就分道扬镳了，虽然可以相互转换，但是 NSArray 的扩展，Array 是不能用的，所以就有了下面的代码</p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> signal = <span class="type">NSArray</span>(array: <span class="string">"A B C D"</span>.componentsSeparatedByString(<span class="string">" "</span>)).rac_sequence.signal()</div><div class="line">signal.subscribeNext { (a) -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">    <span class="built_in">println</span>(a)</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h2 id="Signals">Signals</h2>
+<p>由于 Signal 在 OC 中一直返回的是 id 类型，如下</p>
+<figure class="highlight Objective-C"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[<span class="keyword">self</span><span class="variable">.signal</span> subscribeNext:^(<span class="keyword">id</span> x) {</div><div class="line">  <span class="built_in">NSString</span> *text = (<span class="built_in">NSString</span> *)x;</div><div class="line">  <span class="built_in">NSLog</span>(text);</div><div class="line">}];</div></pre></td></tr></table></figure>
+
+<p>id 类型在 OC 中可谓是万能类型，可以随意的转换和发消息。<br>但是 Swift 号称类型安全，就不能这样了，要实现上面的代码，在 Swift 中可能是这样的</p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">self</span>.signal.subscribeNext {</div><div class="line">  (next:<span class="type">AnyObject</span>!) -&gt; () <span class="keyword">in</span></div><div class="line">  <span class="keyword">if</span> <span class="keyword">let</span> text = next <span class="keyword">as</span>? <span class="type">String</span> {</div><div class="line">    <span class="built_in">println</span>(<span class="built_in">countElements</span>(text))</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>但我们的武器箱里又多了一把武器，泛型。</p>
+<p>通过泛型，我们实现一个 RACSignal 的扩展，让其支持任意类型的转换。</p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">RACSignal</span> </span>{  </div><div class="line">  <span class="func"><span class="keyword">func</span></span> subscribeNextAs&lt;<span class="type">T</span>&gt;(nextClosure:(<span class="type">T</span>) -&gt; ()) -&gt; () {</div><div class="line">    <span class="keyword">self</span>.subscribeNext {</div><div class="line">      (next: <span class="type">AnyObject</span>!) -&gt; () <span class="keyword">in</span></div><div class="line">      <span class="keyword">let</span> nextAsT = next <span class="keyword">as</span> <span class="type">T</span></div><div class="line">      nextClosure(nextAsT)</div><div class="line">    }</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>使用 subscribeNextAs 我们甚至可以写出比 OC 更好的代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">self</span><span class="class">.signal</span><span class="class">.subscribeNextAs</span> <span class="rules">{</span></div><div class="line">  <span class="rule">(<span class="attribute">text</span>:<span class="value">String) -&gt; () in</span></span></div><div class="line">  <span class="function">println</span>(<span class="function">countElements</span>(text))</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>今天到这里，未完待续…</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/09/28/swift-rac/" data-id="vu1tzjzy4kk5aus8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift-ReactiveCocoa/">Swift ReactiveCocoa</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/09/25/hello-world/" class="article-date">
@@ -238,7 +303,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -248,6 +313,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2014/12/14/EffectiveSwift/">Swift 最佳实践</a>
+          </li>
         
           <li>
             <a href="/2014/12/07/iOSCon/">iOSCon 2014 大会整理</a>
@@ -263,10 +332,6 @@
         
           <li>
             <a href="/2014/11/16/language-and-mind/">语言与思维</a>
-          </li>
-        
-          <li>
-            <a href="/2014/11/10/SwiftJson/">SwiftyJSON 技术分析</a>
           </li>
         
       </ul>
