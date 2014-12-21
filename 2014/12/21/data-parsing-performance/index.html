@@ -3,17 +3,35 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2014/12 | NSTiger</title>
+  <title>使用Sqlite进行日期转换的黑科技 | NSTiger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="NSTiger">
-<meta property="og:url" content="http://yoursite.com/archives/2014/12/">
+  <meta name="description" content="今天看到一篇文章，不由得对人民群众的创造力大为叹服。
+苹果对日期的处理性能一直是让人诟病的一件事，广大机智的小伙伴也想出了很多方法去优化。比如缓存时间处理格式和对象等等。
+今天这个小伙伴就利用了Sqlite的日期转换功能让日期转换提高了14倍的速度。
+12013-09-07T23:45:00Z
+
+这就是大家熟悉的 ISO 时间，我们需要转换为 NSDate
+如果使用 NSFormatter 大概是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Sqlite进行日期转换的黑科技">
+<meta property="og:url" content="http://yoursite.com/2014/12/21/data-parsing-performance/">
 <meta property="og:site_name" content="NSTiger">
-<meta property="og:description">
+<meta property="og:description" content="今天看到一篇文章，不由得对人民群众的创造力大为叹服。
+苹果对日期的处理性能一直是让人诟病的一件事，广大机智的小伙伴也想出了很多方法去优化。比如缓存时间处理格式和对象等等。
+今天这个小伙伴就利用了Sqlite的日期转换功能让日期转换提高了14倍的速度。
+12013-09-07T23:45:00Z
+
+这就是大家熟悉的 ISO 时间，我们需要转换为 NSDate
+如果使用 NSFormatter 大概是">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NSTiger">
-<meta name="twitter:description">
+<meta name="twitter:title" content="使用Sqlite进行日期转换的黑科技">
+<meta name="twitter:description" content="今天看到一篇文章，不由得对人民群众的创造力大为叹服。
+苹果对日期的处理性能一直是让人诟病的一件事，广大机智的小伙伴也想出了很多方法去优化。比如缓存时间处理格式和对象等等。
+今天这个小伙伴就利用了Sqlite的日期转换功能让日期转换提高了14倍的速度。
+12013-09-07T23:45:00Z
+
+这就是大家熟悉的 ISO 时间，我们需要转换为 NSDate
+如果使用 NSFormatter 大概是">
 
   
     <link rel="alternative" href="/atom.xml" title="NSTiger" type="application/atom+xml">
@@ -60,9 +78,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-data-parsing-performance" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-data-parsing-performance" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/12/21/data-parsing-performance/" class="article-date">
   <time datetime="2014-12-21T13:39:40.000Z" itemprop="datePublished">12月 21 2014</time>
@@ -75,8 +91,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/21/data-parsing-performance/">使用Sqlite进行日期转换的黑科技</a>
+    <h1 class="article-title" itemprop="name">
+      使用Sqlite进行日期转换的黑科技
     </h1>
   
 
@@ -107,108 +123,20 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-EffectiveSwift" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/12/14/EffectiveSwift/" class="article-date">
-  <time datetime="2014-12-14T14:32:55.000Z" itemprop="datePublished">12月 14 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/14/EffectiveSwift/">Swift 最佳实践</a>
-    </h1>
+    <a href="/2014/12/14/EffectiveSwift/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Swift 最佳实践</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文内容总结自 iOSCon2014 李建中老师讲演</p>
-<h2 id="结构">结构</h2>
-<p>结构是值类型，所以在任何结构传递的地方都会触发复制，需要谨慎使用</p>
-<p>不要在结构中引用 Class 这样会破坏结构体的轻量和线程安全特性<br>注：这里我还是有点异议的，在享元模式中可以非常好的套用到这个情形</p>
-<p>谨慎使用多层 Class</p>
-<h2 id="数组">数组</h2>
-<p>数组和字符串具有可变成本，尽可能使用 let</p>
-<h2 id="对象">对象</h2>
-<p>明确指定变量和常量类型，减少类型推断</p>
-<p>尽可能将对象声明为可选值类型，这样可以显性的去释放内存</p>
-<p>区分值相等 == != 和引用相等 === !===</p>
-<p>谨慎使用类型扩展</p>
-<p>较大自定义类型使用延迟存储属性</p>
-<p>仅在需要释放资源时才定义析构器</p>
-<p>析构过程尽可能短</p>
-<p>尽早将可选类型设置为空</p>
-<p>谨慎创建全局对象</p>
-<h2 id="内存管理">内存管理</h2>
-<p>避免循环强引用</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/12/14/EffectiveSwift/" data-id="p44wfshqhussbxkq" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
 
-
-  
-    <article id="post-iOSCon" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/12/07/iOSCon/" class="article-date">
-  <time datetime="2014-12-07T11:17:46.000Z" itemprop="datePublished">12月 7 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/07/iOSCon/">iOSCon 2014 大会整理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>周末去参加了 iOSCon 2014，前两次都是收费的，今年免费。现场大都是新面孔了，65%是2年以下的开发者。</p>
-<p>当然嘉宾也大都是老面孔，像 Tinyfool, 孔祥波。</p>
-<p>其中孔老师一改前几次大会上的风格，完全不再分享技术相关的主题，而是以改变为名讲了很多感悟，结合自己最近几年的经历有很多的共鸣之处。</p>
-<p>Tinyfool 也讲了最近做的一个很酷炫的工具，可以直接用OC来写Android程序，其中更在意的是他的创业经历，讲到了做事的方法，比如一个项目要做一年，有2000个Issue，那么一定要花时间去分解，去砍掉不必要的，在短时间内完成一个可以用的东西出来，精简成300个Issue，第一个月就做一个验证的东西出来，这是很重要的，有所为，有所不为。</p>
-<p>平安保险的蒋越也讲了做智能健康硬件的一些思路，很有启发。首先手机并不是PC的精简，而是人体器官的延伸，这个认识很重要，数据采集只是健康服务的第一步。马云的10年战略就是为了挖个坑，把所有的希望放在了85后身上，10年前85后没钱，所以只能充点Q币，买个绿钻什么的，所以淘宝亏钱，QQ赚钱，10年后。。。移动健康也遵循同样的战略，所以阿里要做健康。</p>
-<p>总体来说这次大会收获很多，期待下次iOS Con。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/12/07/iOSCon/" data-id="9hcbwkwroxpic5b2" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-  
 </section>
         
           <aside id="sidebar">
