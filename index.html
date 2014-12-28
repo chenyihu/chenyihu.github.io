@@ -62,6 +62,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-swift-init" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/12/28/swift-init/" class="article-date">
+  <time datetime="2014-12-28T13:36:03.000Z" itemprop="datePublished">12月 28 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/12/28/swift-init/">Swift 构造器总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Swift 有一个很强大的特性就是安全<br>体现在对象上就是：不允许游荡的，自由指针，如何做到的呢？构造器就可以一窥其中的思路。</p>
+<h2 id="基本规则">基本规则</h2>
+<h3 id="Rule_1-_可以在初始化过程中修改常量值">Rule 1. 可以在初始化过程中修改常量值</h3>
+<h3 id="Rule_2-_在值类型中定义指定构造器会覆盖掉默认的逐一构造器">Rule 2. 在值类型中定义指定构造器会覆盖掉默认的逐一构造器</h3>
+<h3 id="Rule_3-_每一个类都必须拥有至少一个指定构造器">Rule 3. 每一个类都必须拥有至少一个指定构造器</h3>
+<h2 id="构造器链">构造器链</h2>
+<h3 id="Rule_4-_指定构造器必须调用其直接父类的的指定构造器">Rule 4. 指定构造器必须调用其直接父类的的指定构造器</h3>
+<h3 id="Rule_5-_便利构造器必须调用同一类中定义的其它构造器">Rule 5. 便利构造器必须调用同一类中定义的其它构造器</h3>
+<h3 id="Rule_6-_便利构造器必须最终以调用一个指定构造器结束">Rule 6. 便利构造器必须最终以调用一个指定构造器结束</h3>
+<h2 id="两段式构造过程">两段式构造过程</h2>
+<h3 id="Rule_7-_指定构造器必须保证它所在类引入的属性在它往上代理之前先完成初始化">Rule 7. 指定构造器必须保证它所在类引入的属性在它往上代理之前先完成初始化</h3>
+<h3 id="Rule_8-_指定构造器必须先向上代理调用父类构造器，然后再为继承的属性设置新值">Rule 8. 指定构造器必须先向上代理调用父类构造器，然后再为继承的属性设置新值</h3>
+<h3 id="Rule_9-_便利构造器必须先代理调用同一类中的其它构造器，然后再为任意属性赋新值">Rule 9. 便利构造器必须先代理调用同一类中的其它构造器，然后再为任意属性赋新值</h3>
+<h3 id="Rule_10-_构造器在第一阶段构造完成之前，不能调用任何实例方法、不能读取任何实例属性的值，也不能引用self的值">Rule 10.  构造器在第一阶段构造完成之前，不能调用任何实例方法、不能读取任何实例属性的值，也不能引用self的值</h3>
+<h2 id="构造器的继承和重载">构造器的继承和重载</h2>
+<h3 id="Rule_11-_Swift_中的子类不会默认继承父类的构造器">Rule 11. Swift 中的子类不会默认继承父类的构造器</h3>
+<h3 id="Rule_12-_重载构造器时你没有必要使用关键字override">Rule 12. 重载构造器时你没有必要使用关键字override</h3>
+<h3 id="Rule_13-_如果子类没有定义任何指定构造器，它将自动继承所有父类的指定构造器">Rule 13. 如果子类没有定义任何指定构造器，它将自动继承所有父类的指定构造器</h3>
+<h3 id="Rule_14-_如果子类提供了所有父类指定构造器的实现，它将自动继承所有父类的便利构造器">Rule 14. 如果子类提供了所有父类指定构造器的实现，它将自动继承所有父类的便利构造器</h3>
+<h2 id="举几个栗子">举几个栗子</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">RecipeIngredient</span>: <span class="title">Food</span> </span>{</div><div class="line">    <span class="keyword">var</span> quantity: <span class="type">Int</span></div><div class="line">    <span class="keyword">init</span>(name: <span class="type">String</span>, quantity: <span class="type">Int</span>) {</div><div class="line">    	<span class="keyword">self</span>.quantity = quantity <span class="comment">// Rule 7</span></div><div class="line">	    <span class="keyword">super</span>.<span class="keyword">init</span>(name: name) <span class="comment">// Rule 8</span></div><div class="line">	}</div><div class="line">    convenience <span class="keyword">init</span>(name: <span class="type">String</span>) {</div><div class="line">    	<span class="keyword">self</span>.<span class="keyword">init</span>(name: name, quantity: <span class="number">1</span>) <span class="comment">// Rule 6</span></div><div class="line">	}</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p><img src="/img/init-coder.png" alt="logo"></p>
+<p>自从beta 6 开始，几乎所有的 UIView 类在实现 init 方法后都会报这个错误，这是 Rule 11 的体现。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/12/28/swift-init/" data-id="lekmrh015scxkpaj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-data-parsing-performance" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/12/21/data-parsing-performance/" class="article-date">
@@ -541,70 +601,6 @@
 
 
   
-    <article id="post-asyncdisplaykit" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/10/20/asyncdisplaykit/" class="article-date">
-  <time datetime="2014-10-19T17:25:24.000Z" itemprop="datePublished">10月 20 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/20/asyncdisplaykit/">AsyncDisplayKit：Paper的异步UI技术(一)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>自从上次听了 Facebook 的技术分享之后，对它的异步 UI 技术非常的神往。<br>终于，在几个月后，看到 GitHub - ObjC 排行榜第一名的 AsyncDisplayKit ！</p>
-<p><img src="/img/asyncdisplaykit-logo.png" alt="logo"></p>
-<p>AsyncDisplayKit 是 Facebook 的 Paper 团队在项目研发时的副产品<br>基于以下一些理由</p>
-<ol>
-<li>手势和物理动画相结合 (POP引擎) ，还要有非常流畅的效果。</li>
-<li>丢帧的效果令人沮丧，失败的预期会导致人焦虑。</li>
-<li>触控和动画都是至关重要的，需要60FPS的水准。</li>
-<li>CA 引擎只作用于静态动画，无法处理手势和物理效果动画。</li>
-<li>用户可以在任意状态下操作界面，而静态动画往往是 fire-and-forget.</li>
-<li>当你决定不再需要渲染时Block主线程时，自然而然会想到在设计初始就用一个特殊的架构去实现。</li>
-</ol>
-<p>导致丢帧的因素可能有哪些呢？</p>
-<ol>
-<li>拖延主线程超过5毫秒，将导致丢帧。</li>
-<li><ul>
-<li>layoutSubViews / - layoutSublayers</li>
-</ul>
-</li>
-<li><ul>
-<li>drawRect:</li>
-</ul>
-</li>
-<li>UIView: init / addSubview: / removeFromSuperview / dealloc</li>
-</ol>
-<p>异步UI设计了 Node 这样一个新的数据结构</p>
-<p>Node 是类似于 View 的一种视图对象，但是它的渲染都不在主线程完成，所以一定不会卡住主线程，同时可以转换为 View, 借用官方的一个图来说：</p>
-<p><img src="/img/asyncdisplaykit-node.png" alt="node"></p>
-<p> 今天就到这里，未完待续！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/10/20/asyncdisplaykit/" data-id="kdqf8nf22t0dv538" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -638,7 +634,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -648,6 +644,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2014/12/28/swift-init/">Swift 构造器总结</a>
+          </li>
         
           <li>
             <a href="/2014/12/21/data-parsing-performance/">使用Sqlite进行日期转换的黑科技</a>
@@ -663,10 +663,6 @@
         
           <li>
             <a href="/2014/11/30/today-extension/">Today 扩展实战</a>
-          </li>
-        
-          <li>
-            <a href="/2014/11/24/viper/">VIPER 架构探浅</a>
           </li>
         
       </ul>

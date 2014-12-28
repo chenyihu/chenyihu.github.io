@@ -3,17 +3,39 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2014/12 | NSTiger</title>
+  <title>Swift 构造器总结 | NSTiger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="NSTiger">
-<meta property="og:url" content="http://yoursite.com/archives/2014/12/">
+  <meta name="description" content="Swift 有一个很强大的特性就是安全体现在对象上就是：不允许游荡的，自由指针，如何做到的呢？构造器就可以一窥其中的思路。
+基本规则
+Rule 1. 可以在初始化过程中修改常量值
+Rule 2. 在值类型中定义指定构造器会覆盖掉默认的逐一构造器
+Rule 3. 每一个类都必须拥有至少一个指定构造器
+构造器链
+Rule 4. 指定构造器必须调用其直接父类的的指定构造器
+Rule 5. 便利构造器必须">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift 构造器总结">
+<meta property="og:url" content="http://yoursite.com/2014/12/28/swift-init/">
 <meta property="og:site_name" content="NSTiger">
-<meta property="og:description">
+<meta property="og:description" content="Swift 有一个很强大的特性就是安全体现在对象上就是：不允许游荡的，自由指针，如何做到的呢？构造器就可以一窥其中的思路。
+基本规则
+Rule 1. 可以在初始化过程中修改常量值
+Rule 2. 在值类型中定义指定构造器会覆盖掉默认的逐一构造器
+Rule 3. 每一个类都必须拥有至少一个指定构造器
+构造器链
+Rule 4. 指定构造器必须调用其直接父类的的指定构造器
+Rule 5. 便利构造器必须">
+<meta property="og:image" content="/img/init-coder.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NSTiger">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Swift 构造器总结">
+<meta name="twitter:description" content="Swift 有一个很强大的特性就是安全体现在对象上就是：不允许游荡的，自由指针，如何做到的呢？构造器就可以一窥其中的思路。
+基本规则
+Rule 1. 可以在初始化过程中修改常量值
+Rule 2. 在值类型中定义指定构造器会覆盖掉默认的逐一构造器
+Rule 3. 每一个类都必须拥有至少一个指定构造器
+构造器链
+Rule 4. 指定构造器必须调用其直接父类的的指定构造器
+Rule 5. 便利构造器必须">
 
   
     <link rel="alternative" href="/atom.xml" title="NSTiger" type="application/atom+xml">
@@ -60,9 +82,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-swift-init" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-swift-init" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/12/28/swift-init/" class="article-date">
   <time datetime="2014-12-28T13:36:03.000Z" itemprop="datePublished">12月 28 2014</time>
@@ -75,8 +95,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/28/swift-init/">Swift 构造器总结</a>
+    <h1 class="article-title" itemprop="name">
+      Swift 构造器总结
     </h1>
   
 
@@ -118,157 +138,20 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-data-parsing-performance" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/12/21/data-parsing-performance/" class="article-date">
-  <time datetime="2014-12-21T13:39:40.000Z" itemprop="datePublished">12月 21 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/21/data-parsing-performance/">使用Sqlite进行日期转换的黑科技</a>
-    </h1>
+    <a href="/2014/12/21/data-parsing-performance/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用Sqlite进行日期转换的黑科技</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天看到一篇文章，不由得对人民群众的创造力大为叹服。</p>
-<p>苹果对日期的处理性能一直是让人诟病的一件事，广大机智的小伙伴也想出了很多方法去优化。比如缓存时间处理格式和对象等等。</p>
-<p>今天这个小伙伴就利用了Sqlite的日期转换功能让日期转换提高了14倍的速度。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2013<span class="tag">-09-07T23</span><span class="pseudo">:45</span><span class="pseudo">:00Z</span></div></pre></td></tr></table></figure>
-
-<p>这就是大家熟悉的 ISO 时间，我们需要转换为 NSDate</p>
-<p>如果使用 NSFormatter 大概是这样的</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];</div><div class="line">[inputFormatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:<span class="string">@"en_US_POSIX"</span>] autorelease]];</div><div class="line">[inputFormatter setDateFormat:format];</div><div class="line"><span class="built_in">NSDate</span> *theDate = <span class="literal">nil</span>;</div><div class="line"><span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</div><div class="line"><span class="keyword">if</span> (![inputFormatter getObjectValue:&theDate forString:string range:<span class="literal">nil</span> error:&error]) {</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"ERROR! Date '%@' with '%@' could not be parsed: %@"</span>, string, format,  error);</div><div class="line">}</div><div class="line"><span class="comment">//NSDate *date = [inputFormatter dateFromString:string];</span></div><div class="line">[inputFormatter release];</div></pre></td></tr></table></figure>
-
-<p>用 Sqlite 大概是这个过程</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">sqlite3_stmt *statement = <span class="literal">NULL</span>;</div><div class="line">sqlite3_prepare_v2(db, <span class="string">"SELECT strftime('%s', ?);"</span>, -<span class="number">1</span>, &statement, <span class="literal">NULL</span>);</div><div class="line"></div><div class="line">sqlite3_bind_text(statement, <span class="number">1</span>, [dateString UTF8String], -<span class="number">1</span>, SQLITE_STATIC);</div><div class="line">sqlite3_step(statement);</div><div class="line">sqlite3_int64 interval = sqlite3_column_int64(statement, <span class="number">0</span>);</div><div class="line"><span class="built_in">NSDate</span> *date = [<span class="built_in">NSDate</span> dateWithTimeIntervalSince1970:interval];</div></pre></td></tr></table></figure>
-
-<p>很聪明的解法，比方法一快了14倍 ！。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/12/21/data-parsing-performance/" data-id="rfnfyd8g6pmmsioa" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
 
-
-  
-    <article id="post-EffectiveSwift" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/12/14/EffectiveSwift/" class="article-date">
-  <time datetime="2014-12-14T14:32:55.000Z" itemprop="datePublished">12月 14 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/14/EffectiveSwift/">Swift 最佳实践</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文内容总结自 iOSCon2014 李建中老师讲演</p>
-<h2 id="结构">结构</h2>
-<p>结构是值类型，所以在任何结构传递的地方都会触发复制，需要谨慎使用</p>
-<p>不要在结构中引用 Class 这样会破坏结构体的轻量和线程安全特性<br>注：这里我还是有点异议的，在享元模式中可以非常好的套用到这个情形</p>
-<p>谨慎使用多层 Class</p>
-<h2 id="数组">数组</h2>
-<p>数组和字符串具有可变成本，尽可能使用 let</p>
-<h2 id="对象">对象</h2>
-<p>明确指定变量和常量类型，减少类型推断</p>
-<p>尽可能将对象声明为可选值类型，这样可以显性的去释放内存</p>
-<p>区分值相等 == != 和引用相等 === !===</p>
-<p>谨慎使用类型扩展</p>
-<p>较大自定义类型使用延迟存储属性</p>
-<p>仅在需要释放资源时才定义析构器</p>
-<p>析构过程尽可能短</p>
-<p>尽早将可选类型设置为空</p>
-<p>谨慎创建全局对象</p>
-<h2 id="内存管理">内存管理</h2>
-<p>避免循环强引用</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/12/14/EffectiveSwift/" data-id="p44wfshqhussbxkq" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-iOSCon" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/12/07/iOSCon/" class="article-date">
-  <time datetime="2014-12-07T11:17:46.000Z" itemprop="datePublished">12月 7 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/07/iOSCon/">iOSCon 2014 大会整理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>周末去参加了 iOSCon 2014，前两次都是收费的，今年免费。现场大都是新面孔了，65%是2年以下的开发者。</p>
-<p>当然嘉宾也大都是老面孔，像 Tinyfool, 孔祥波。</p>
-<p>其中孔老师一改前几次大会上的风格，完全不再分享技术相关的主题，而是以改变为名讲了很多感悟，结合自己最近几年的经历有很多的共鸣之处。</p>
-<p>Tinyfool 也讲了最近做的一个很酷炫的工具，可以直接用OC来写Android程序，其中更在意的是他的创业经历，讲到了做事的方法，比如一个项目要做一年，有2000个Issue，那么一定要花时间去分解，去砍掉不必要的，在短时间内完成一个可以用的东西出来，精简成300个Issue，第一个月就做一个验证的东西出来，这是很重要的，有所为，有所不为。</p>
-<p>平安保险的蒋越也讲了做智能健康硬件的一些思路，很有启发。首先手机并不是PC的精简，而是人体器官的延伸，这个认识很重要，数据采集只是健康服务的第一步。马云的10年战略就是为了挖个坑，把所有的希望放在了85后身上，10年前85后没钱，所以只能充点Q币，买个绿钻什么的，所以淘宝亏钱，QQ赚钱，10年后。。。移动健康也遵循同样的战略，所以阿里要做健康。</p>
-<p>总体来说这次大会收获很多，期待下次iOS Con。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/12/07/iOSCon/" data-id="9hcbwkwroxpic5b2" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-  
 </section>
         
           <aside id="sidebar">
