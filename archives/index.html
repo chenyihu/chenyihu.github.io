@@ -62,6 +62,50 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2014" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/11/2014/" class="article-date">
+  <time datetime="2015-01-11T13:23:39.000Z" itemprop="datePublished">1月 11 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/11/2014/">2014总结: Think Less, Do More</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>眨眼间2014年就过去了，这一年发生了很多，也学到了很多。</p>
+<p>自从2012年离开互联网之后就投身到商务BI这一完全陌生的领域，和别人一起创业，自己创业，磕磕碰碰的花光最后一笔钱，然后散伙。一幕幕的场景仿佛发生在昨日。</p>
+<p>重新回到互联网行业应该是今年的大事件。尤其是移动健康领域，充满着各种可能。</p>
+<p>在过去的2年里，一直专注于组件和企业应用，实际上并不关心苹果的新技术。<br>而互联网公司却不然，对新技术的接受和应用速度非常快。</p>
+<p>这期间学习了新语言 Swift，以及 iOS 7, 8 的各种新技术譬如 HealthKit，也用Swift开发了一两个新项目，虽然遇到不少坑，但总的来说还不错。<br>iOS 8 以及 XCode 6 着实让大家郁闷了好一阵子，但是要相信苹果。</p>
+<p>开发方式也从过去的 文档驱动型开发，命令驱动型开发，转到了敏捷开发。<br>从 SVN 到 Git，从 Jira 到 Teambition，真正的把思维重新转向互联网模式。</p>
+<p>接下来的一年里，要做更多，更好的技术分享，同时逐步开源以前的一些代码，积极的参与开源项目。</p>
+<p>Think Less, Do More</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/01/11/2014/" data-id="r6qvg9jcs27qiobz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-swift-init" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/12/28/swift-init/" class="article-date">
@@ -541,66 +585,6 @@
 
 
   
-    <article id="post-asyncdisplaykit2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/10/21/asyncdisplaykit2/" class="article-date">
-  <time datetime="2014-10-21T05:41:52.000Z" itemprop="datePublished">10月 21 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/10/21/asyncdisplaykit2/">AsyncDisplayKit：Paper的异步UI技术(二)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用 Node 这一重新设计的类型，我们可以很方便的在后台进行界面渲染</p>
-<figure class="highlight Objective-C"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(_backgroundQueue, ^{</div><div class="line">  ASTextNode *node = [[ASTextNode alloc] init];</div><div class="line">  node<span class="variable">.attributedString</span> = [[NSAttributedString alloc] initWithString:<span class="string">@"hello!"</span></div><div class="line">                                                          attributes:<span class="literal">nil</span>];</div><div class="line">  [node measure:CGSizeMake(screenWidth, FLT_MAX)];</div><div class="line">  node<span class="variable">.frame</span> = (<span class="built_in">CGRect</span>){ CGPointZero, node<span class="variable">.calculatedSize</span> };</div><div class="line"></div><div class="line">  <span class="comment">// self.view isn't a node, so we can only use it on the main thread</span></div><div class="line">  <span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^{</div><div class="line">    [<span class="keyword">self</span><span class="variable">.view</span> addSubview:node<span class="variable">.view</span>];</div><div class="line">  });</div><div class="line">});</div></pre></td></tr></table></figure>
-
-<p>目前可以使用的 Node 有以下几种</p>
-<ul>
-<li>ASDisplayNode. Counterpart to UIView — subclass to make custom nodes.</li>
-<li>ASControlNode. Analogous to UIControl — subclass to make buttons.</li>
-<li>ASImageNode. Like UIImageView — decodes images asynchronously.</li>
-<li>ASTextNode. Like UITextView — built on TextKit with full-featured rich text support.</li>
-<li>ASTableView. UITableView subclass that supports nodes.</li>
-</ul>
-<p>我们可以在 - loadView 实现里这么写</p>
-<figure class="highlight Objective-C"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">_imageView = [[UIImageView alloc] init];</div><div class="line">_imageView.image = [UIImage imageNamed:@<span class="string">"hello"</span>];</div><div class="line">_imageView.frame = CGRectMake(<span class="number">10.0f</span>, <span class="number">10.0f</span>, <span class="number">40.0f</span>, <span class="number">40.0f</span>);</div><div class="line">[self.view addSubview:_imageView];</div></pre></td></tr></table></figure>
-
-<p>Node 版本</p>
-<figure class="highlight Objective-C"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="constant">_imageNode</span> = [[ASImageNode alloc] init];</div><div class="line"><span class="constant">_imageNode.backgroundColor</span> = [UIColor lightGrayColor];</div><div class="line"><span class="constant">_imageNode.image</span> = [UIImage imageNamed:@<span class="string">"hello"</span>];</div><div class="line"><span class="constant">_imageNode.frame</span> = CGRectMake(<span class="number">10.0</span>f, <span class="number">10.0</span>f, <span class="number">40.0</span>f, <span class="number">40.0</span>f);</div><div class="line">[self.view addSubview:_imageNode.view];</div></pre></td></tr></table></figure>
-
-<p>表面看，上面的代码并没有用到异步 UI 渲染，但实际上速度仍然要快一点，因为 _imageNode.image = xxx 会在后台执行，所以能充分利用多核的计算能力。</p>
-<p>此外，我们也能够使用 Node 来响应交互事件</p>
-<figure class="highlight Objective-C"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad</div><div class="line">{</div><div class="line">  [<span class="keyword">super</span> viewDidLoad];</div><div class="line"></div><div class="line">  <span class="comment">// attribute a string</span></div><div class="line">  <span class="built_in">NSDictionary</span> *attrs = @{</div><div class="line">                          NSFontAttributeName: [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">12.0</span>f],</div><div class="line">                          NSForegroundColorAttributeName: [<span class="built_in">UIColor</span> redColor],</div><div class="line">                          };</div><div class="line">  NSAttributedString *string = [[NSAttributedString alloc] initWithString:<span class="string">@"shuffle"</span></div><div class="line">                                                               attributes:attrs];</div><div class="line"></div><div class="line">  <span class="comment">// create the node</span></div><div class="line">  _shuffleNode = [[ASTextNode alloc] init];</div><div class="line">  _shuffleNode<span class="variable">.attributedString</span> = string;</div><div class="line"></div><div class="line">  <span class="comment">// configure the button</span></div><div class="line">  _shuffleNode<span class="variable">.userInteractionEnabled</span> = <span class="literal">YES</span>; <span class="comment">// opt into touch handling</span></div><div class="line">  [_shuffleNode addTarget:<span class="keyword">self</span></div><div class="line">                   action:<span class="keyword">@selector</span>(buttonTapped:)</div><div class="line">         forControlEvents:ASControlNodeEventTouchUpInside];</div><div class="line"></div><div class="line">  <span class="comment">// size all the things</span></div><div class="line">  <span class="built_in">CGRect</span> b = <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.bounds</span>; <span class="comment">// convenience</span></div><div class="line">  <span class="built_in">CGSize</span> size = [_shuffleNode measure:CGSizeMake(b<span class="variable">.size</span><span class="variable">.width</span>, FLT_MAX)];</div><div class="line">  <span class="built_in">CGPoint</span> origin = CGPointMake(roundf( (b<span class="variable">.size</span><span class="variable">.width</span> - size<span class="variable">.width</span>) / <span class="number">2.0</span>f ),</div><div class="line">                               roundf( (b<span class="variable">.size</span><span class="variable">.height</span> - size<span class="variable">.height</span>) / <span class="number">2.0</span>f ));</div><div class="line">  _shuffleNode<span class="variable">.frame</span> = (<span class="built_in">CGRect</span>){ origin, size };</div><div class="line"></div><div class="line">  <span class="comment">// add to our view</span></div><div class="line">  [<span class="keyword">self</span><span class="variable">.view</span> addSubview:_shuffleNode<span class="variable">.view</span>];</div><div class="line">}</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)buttonTapped:(<span class="keyword">id</span>)sender</div><div class="line">{</div><div class="line">  <span class="built_in">NSLog</span>(<span class="string">@"tapped!"</span>);</div><div class="line">}</div></pre></td></tr></table></figure>
-
-<p>有一个问题是，按钮的大小并非有 44 那么高。所以我们这里还需要提供一个方法，让触摸的热点变的更大。</p>
-<figure class="highlight Objective-C"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// size all the things</div><div class="line"> /* <span class="keyword">...</span> */</div><div class="line"></div><div class="line"> // make the tap target taller</div><div class="line"> CGFloat extendY = roundf( (<span class="number">44.</span>0f - size.height) / <span class="number">2.</span>0f );</div><div class="line"> _shuffleNode.hitTestSlop = UIEdgeInsetsMake(-extendY, <span class="number">0.</span>0f, -extendY, <span class="number">0.</span>0f);</div></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/10/21/asyncdisplaykit2/" data-id="nu15cf4c0pg6e4aw" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
@@ -634,7 +618,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -644,6 +628,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/01/11/2014/">2014总结: Think Less, Do More</a>
+          </li>
         
           <li>
             <a href="/2014/12/28/swift-init/">Swift 构造器总结</a>
@@ -661,10 +649,6 @@
             <a href="/2014/12/07/iOSCon/">iOSCon 2014 大会整理</a>
           </li>
         
-          <li>
-            <a href="/2014/11/30/today-extension/">Today 扩展实战</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -677,7 +661,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2014 Tiger Chen<br>
+      &copy; 2015 Tiger Chen<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

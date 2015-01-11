@@ -3,21 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>VIPER 架构探浅 | NSTiger</title>
+  <title>Archives: 2015/1 | NSTiger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="通常，我们会使用 MVC 来构建应用，MVC 强调代码的分层原则，按照不同的逻辑分为模型，控制器，视图 三部分，但是这是个很粗糙的分层，所以很多情况下，MVC 并没有被很好的实践，以至于 C 里面塞入了大量的代码，最后变成 Massive View Controller
-在 objc.io 上看到一个非常好的架构，似乎解决了这个问题这个架构称为 VIPER，即 视图，交互器，展示器，实体，路由。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="VIPER 架构探浅">
-<meta property="og:url" content="http://yoursite.com/2014/11/24/viper/">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NSTiger">
+<meta property="og:url" content="http://yoursite.com/archives/2015/01/">
 <meta property="og:site_name" content="NSTiger">
-<meta property="og:description" content="通常，我们会使用 MVC 来构建应用，MVC 强调代码的分层原则，按照不同的逻辑分为模型，控制器，视图 三部分，但是这是个很粗糙的分层，所以很多情况下，MVC 并没有被很好的实践，以至于 C 里面塞入了大量的代码，最后变成 Massive View Controller
-在 objc.io 上看到一个非常好的架构，似乎解决了这个问题这个架构称为 VIPER，即 视图，交互器，展示器，实体，路由。">
-<meta property="og:image" content="/img/viper-wireframe.png">
+<meta property="og:description">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VIPER 架构探浅">
-<meta name="twitter:description" content="通常，我们会使用 MVC 来构建应用，MVC 强调代码的分层原则，按照不同的逻辑分为模型，控制器，视图 三部分，但是这是个很粗糙的分层，所以很多情况下，MVC 并没有被很好的实践，以至于 C 里面塞入了大量的代码，最后变成 Massive View Controller
-在 objc.io 上看到一个非常好的架构，似乎解决了这个问题这个架构称为 VIPER，即 视图，交互器，展示器，实体，路由。">
+<meta name="twitter:title" content="NSTiger">
+<meta name="twitter:description">
 
   
     <link rel="alternative" href="/atom.xml" title="NSTiger" type="application/atom+xml">
@@ -64,10 +60,12 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-viper" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main">
+  
+    <article id="post-2014" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/11/24/viper/" class="article-date">
-  <time datetime="2014-11-23T17:06:50.000Z" itemprop="datePublished">11月 24 2014</time>
+    <a href="/2015/01/11/2014/" class="article-date">
+  <time datetime="2015-01-11T13:23:39.000Z" itemprop="datePublished">1月 11 2015</time>
 </a>
     
   </div>
@@ -77,8 +75,8 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      VIPER 架构探浅
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/11/2014/">2014总结: Think Less, Do More</a>
     </h1>
   
 
@@ -86,50 +84,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>通常，我们会使用 MVC 来构建应用，MVC 强调代码的分层原则，按照不同的逻辑分为模型，控制器，视图 三部分，但是这是个很粗糙的分层，所以很多情况下，MVC 并没有被很好的实践，以至于 C 里面塞入了大量的代码，最后变成 Massive View Controller</p>
-<p>在 objc.io 上看到一个非常好的架构，似乎解决了这个问题<br>这个架构称为 VIPER，即 视图，交互器，展示器，实体，路由。</p>
-<ul>
-<li>视图：根据展示器的要求显示界面，并将用户输入反馈给展示器。</li>
-<li>交互器：包含由用例指定的业务逻辑。</li>
-<li>展示器：包含为显示（从交互器接受的内容）做的准备工作的相关视图逻辑，并对用户输入进行反馈（从交互器获取新数据）。</li>
-<li>实体：包含交互器要使用的基本模型对象。</li>
-<li>路由：包含用来描述屏幕显示和显示顺序的导航逻辑。</li>
-</ul>
-<p>实际上是精心设计过的 MVC 架构，只是进行了更好的拆解。</p>
-<p><img src="/img/viper-wireframe.png" alt="viper-wireframe"></p>
+        <p>眨眼间2014年就过去了，这一年发生了很多，也学到了很多。</p>
+<p>自从2012年离开互联网之后就投身到商务BI这一完全陌生的领域，和别人一起创业，自己创业，磕磕碰碰的花光最后一笔钱，然后散伙。一幕幕的场景仿佛发生在昨日。</p>
+<p>重新回到互联网行业应该是今年的大事件。尤其是移动健康领域，充满着各种可能。</p>
+<p>在过去的2年里，一直专注于组件和企业应用，实际上并不关心苹果的新技术。<br>而互联网公司却不然，对新技术的接受和应用速度非常快。</p>
+<p>这期间学习了新语言 Swift，以及 iOS 7, 8 的各种新技术譬如 HealthKit，也用Swift开发了一两个新项目，虽然遇到不少坑，但总的来说还不错。<br>iOS 8 以及 XCode 6 着实让大家郁闷了好一阵子，但是要相信苹果。</p>
+<p>开发方式也从过去的 文档驱动型开发，命令驱动型开发，转到了敏捷开发。<br>从 SVN 到 Git，从 Jira 到 Teambition，真正的把思维重新转向互联网模式。</p>
+<p>接下来的一年里，要做更多，更好的技术分享，同时逐步开源以前的一些代码，积极的参与开源项目。</p>
+<p>Think Less, Do More</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/11/24/viper/" data-id="tijp8lcvyt4ln5xr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/01/11/2014/" data-id="r6qvg9jcs27qiobz" class="article-share-link">Share</a>
       
       
     </footer>
   </div>
   
-    
-<nav id="article-nav">
-  
-    <a href="/2014/11/30/today-extension/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Today 扩展实战
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2014/11/16/language-and-mind/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">语言与思维</div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
+
+  
+  
 </section>
         
           <aside id="sidebar">
