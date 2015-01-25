@@ -3,26 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>2014总结: Think Less, Do More | NSTiger</title>
+  <title>手势冲突处理一则 | NSTiger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="眨眼间2014年就过去了，这一年发生了很多，也学到了很多。
-自从2012年离开互联网之后就投身到商务BI这一完全陌生的领域，和别人一起创业，自己创业，磕磕碰碰的花光最后一笔钱，然后散伙。一幕幕的场景仿佛发生在昨日。
-重新回到互联网行业应该是今年的大事件。尤其是移动健康领域，充满着各种可能。
-在过去的2年里，一直专注于组件和企业应用，实际上并不关心苹果的新技术。而互联网公司却不然，对新技术的接受和应">
+  <meta name="description" content="在开发新的 APP 时遇到一个问题，就是在界面里有很多的滑动手势，这个时候手势冲突就非常严重了。而苹果早就考虑到了这一点，可以非常方便的处理冲突。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2014总结: Think Less, Do More">
-<meta property="og:url" content="http://yoursite.com/2015/01/11/2014/">
+<meta property="og:title" content="手势冲突处理一则">
+<meta property="og:url" content="http://yoursite.com/2015/01/18/gesture/">
 <meta property="og:site_name" content="NSTiger">
-<meta property="og:description" content="眨眼间2014年就过去了，这一年发生了很多，也学到了很多。
-自从2012年离开互联网之后就投身到商务BI这一完全陌生的领域，和别人一起创业，自己创业，磕磕碰碰的花光最后一笔钱，然后散伙。一幕幕的场景仿佛发生在昨日。
-重新回到互联网行业应该是今年的大事件。尤其是移动健康领域，充满着各种可能。
-在过去的2年里，一直专注于组件和企业应用，实际上并不关心苹果的新技术。而互联网公司却不然，对新技术的接受和应">
+<meta property="og:description" content="在开发新的 APP 时遇到一个问题，就是在界面里有很多的滑动手势，这个时候手势冲突就非常严重了。而苹果早就考虑到了这一点，可以非常方便的处理冲突。">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2014总结: Think Less, Do More">
-<meta name="twitter:description" content="眨眼间2014年就过去了，这一年发生了很多，也学到了很多。
-自从2012年离开互联网之后就投身到商务BI这一完全陌生的领域，和别人一起创业，自己创业，磕磕碰碰的花光最后一笔钱，然后散伙。一幕幕的场景仿佛发生在昨日。
-重新回到互联网行业应该是今年的大事件。尤其是移动健康领域，充满着各种可能。
-在过去的2年里，一直专注于组件和企业应用，实际上并不关心苹果的新技术。而互联网公司却不然，对新技术的接受和应">
+<meta name="twitter:title" content="手势冲突处理一则">
+<meta name="twitter:description" content="在开发新的 APP 时遇到一个问题，就是在界面里有很多的滑动手势，这个时候手势冲突就非常严重了。而苹果早就考虑到了这一点，可以非常方便的处理冲突。">
 
   
     <link rel="alternative" href="/atom.xml" title="NSTiger" type="application/atom+xml">
@@ -69,10 +60,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-2014" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-gesture" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/01/11/2014/" class="article-date">
-  <time datetime="2015-01-11T13:23:39.000Z" itemprop="datePublished">1月 11 2015</time>
+    <a href="/2015/01/18/gesture/" class="article-date">
+  <time datetime="2015-01-18T15:30:07.000Z" itemprop="datePublished">1月 18 2015</time>
 </a>
     
   </div>
@@ -83,7 +74,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      2014总结: Think Less, Do More
+      手势冲突处理一则
     </h1>
   
 
@@ -91,19 +82,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>眨眼间2014年就过去了，这一年发生了很多，也学到了很多。</p>
-<p>自从2012年离开互联网之后就投身到商务BI这一完全陌生的领域，和别人一起创业，自己创业，磕磕碰碰的花光最后一笔钱，然后散伙。一幕幕的场景仿佛发生在昨日。</p>
-<p>重新回到互联网行业应该是今年的大事件。尤其是移动健康领域，充满着各种可能。</p>
-<p>在过去的2年里，一直专注于组件和企业应用，实际上并不关心苹果的新技术。<br>而互联网公司却不然，对新技术的接受和应用速度非常快。</p>
-<p>这期间学习了新语言 Swift，以及 iOS 7, 8 的各种新技术譬如 HealthKit，也用Swift开发了一两个新项目，虽然遇到不少坑，但总的来说还不错。<br>iOS 8 以及 XCode 6 着实让大家郁闷了好一阵子，但是要相信苹果。</p>
-<p>开发方式也从过去的 文档驱动型开发，命令驱动型开发，转到了敏捷开发。<br>从 SVN 到 Git，从 Jira 到 Teambition，真正的把思维重新转向互联网模式。</p>
-<p>接下来的一年里，要做更多，更好的技术分享，同时逐步开源以前的一些代码，积极的参与开源项目。</p>
-<p>Think Less, Do More</p>
+        <p>在开发新的 APP 时遇到一个问题，就是在界面里有很多的滑动手势，这个时候手势冲突就非常严重了。<br>而苹果早就考虑到了这一点，可以非常方便的处理冲突。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/01/11/2014/" data-id="r6qvg9jcs27qiobz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/01/18/gesture/" data-id="2vp1m13jxl9dk28w" class="article-share-link">Share</a>
       
       
     </footer>
@@ -112,19 +96,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/01/18/gesture/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/01/25/chart-1/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          手势冲突处理一则
+          iOS报表技术（一）
         
       </div>
     </a>
   
   
-    <a href="/2014/12/28/swift-init/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/01/11/2014/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Swift 构造器总结</div>
+      <div class="article-nav-title">2014总结: Think Less, Do More</div>
     </a>
   
 </nav>
