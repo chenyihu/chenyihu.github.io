@@ -3,17 +3,59 @@
 <head>
   <meta charset="utf-8">
   
-  <title>开写博客了 | NSTiger</title>
+  <title>iOS报表技术（二） | NSTiger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="如题。">
+  <meta name="description" content="这周我们讲讲如何使用层模型来绘图，和绘画家模型（Canvas）不同，绘画家的图是静态的，所以只要安排好画每一笔的顺序就好了每一笔都叠在已画好的上面，画布只有一层
+
+CALayer 的层模型更进一步，把不同图层的对象区分开来，这样就有了更加灵活的和可复用的绘图手法
+
+我们的报表也采用这种模型，从最底到最上我们就可以区分出这么几层
+
+背景层
+BAND层
+轴，包括装饰用的
+轴标注
+
+
+渐变填充层
+完整渐">
 <meta property="og:type" content="article">
-<meta property="og:title" content="开写博客了">
-<meta property="og:url" content="http://yoursite.com/2014/09/21/first-blog/">
+<meta property="og:title" content="iOS报表技术（二）">
+<meta property="og:url" content="http://yoursite.com/2015/02/01/chart-2/">
 <meta property="og:site_name" content="NSTiger">
-<meta property="og:description" content="如题。">
+<meta property="og:description" content="这周我们讲讲如何使用层模型来绘图，和绘画家模型（Canvas）不同，绘画家的图是静态的，所以只要安排好画每一笔的顺序就好了每一笔都叠在已画好的上面，画布只有一层
+
+CALayer 的层模型更进一步，把不同图层的对象区分开来，这样就有了更加灵活的和可复用的绘图手法
+
+我们的报表也采用这种模型，从最底到最上我们就可以区分出这么几层
+
+背景层
+BAND层
+轴，包括装饰用的
+轴标注
+
+
+渐变填充层
+完整渐">
+<meta property="og:image" content="/img/jack.png">
+<meta property="og:image" content="/img/jack-layers1.png">
+<meta property="og:image" content="/img/chart-1.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开写博客了">
-<meta name="twitter:description" content="如题。">
+<meta name="twitter:title" content="iOS报表技术（二）">
+<meta name="twitter:description" content="这周我们讲讲如何使用层模型来绘图，和绘画家模型（Canvas）不同，绘画家的图是静态的，所以只要安排好画每一笔的顺序就好了每一笔都叠在已画好的上面，画布只有一层
+
+CALayer 的层模型更进一步，把不同图层的对象区分开来，这样就有了更加灵活的和可复用的绘图手法
+
+我们的报表也采用这种模型，从最底到最上我们就可以区分出这么几层
+
+背景层
+BAND层
+轴，包括装饰用的
+轴标注
+
+
+渐变填充层
+完整渐">
 
   
     <link rel="alternative" href="/atom.xml" title="NSTiger" type="application/atom+xml">
@@ -60,10 +102,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-first-blog" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-chart-2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/09/21/first-blog/" class="article-date">
-  <time datetime="2014-09-20T18:54:07.000Z" itemprop="datePublished">9月 21 2014</time>
+    <a href="/2015/02/01/chart-2/" class="article-date">
+  <time datetime="2015-02-01T12:44:10.000Z" itemprop="datePublished">2月 1 2015</time>
 </a>
     
   </div>
@@ -74,7 +116,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      开写博客了
+      iOS报表技术（二）
     </h1>
   
 
@@ -82,12 +124,45 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>如题。</p>
+        <p>这周我们讲讲如何使用层模型来绘图，和绘画家模型（Canvas）不同，绘画家的图是静态的，所以只要安排好画每一笔的顺序就好了<br>每一笔都叠在已画好的上面，画布只有一层</p>
+<p><img src="/img/jack.png" alt=""></p>
+<p>CALayer 的层模型更进一步，把不同图层的对象区分开来，这样就有了更加灵活的和可复用的绘图手法</p>
+<p><img src="/img/jack-layers1.png" alt=""></p>
+<p>我们的报表也采用这种模型，从最底到最上我们就可以区分出这么几层</p>
+<ul>
+<li>背景层</li>
+<li>BAND层</li>
+<li>轴，包括装饰用的<ul>
+<li>轴标注</li>
+</ul>
+</li>
+<li>渐变填充层<ul>
+<li>完整渐变</li>
+<li>渐变遮罩层</li>
+</ul>
+</li>
+<li>线层<ul>
+<li>正常线</li>
+<li>超出范围的线<ul>
+<li>完整的线</li>
+<li>范围遮罩层</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>点层</li>
+<li>标注层</li>
+</ul>
+<p><img src="/img/chart-1.png" alt="曲线"></p>
+<p>我们就用了这样 7个主图层，7个辅助图层，最终描出了所需的报表，图层之间大多是（半）透明，因此会产生图层的混合运算，这是由GPU完成的，可以不担心性能，当然，关闭其中不必要的透明图层可以提高性能。</p>
+<p>有同学可能对一条线能够在不同范围表现出不同的色彩感到很惊奇，觉得没法用画布画出来，其实不然，人的视觉是带有惯性的，所以不能以这种思维去思考问题，我们在计算机层面上很容易理解这个问题，首先画出一条红线，然后再画一条白线，把范围外的白线都切掉，然后叠在红线上，不就形成了所需要的效果吗？ 不需要你一口气去画出红白相间的线的。</p>
+<p>在层模型上，剪切就可以用层遮罩代替，所以上面可以看到两个遮罩层，是用来裁剪所需范围的图层的。</p>
+<p>今天就到这里，下次继续~！</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/09/21/first-blog/" data-id="j4qas4awtztmfan9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/02/01/chart-2/" data-id="slcl5mknw935rm9t" class="article-share-link">Share</a>
       
       
     </footer>
@@ -96,15 +171,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2014/09/22/swift-mark/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Swift 中的标记
-        
-      </div>
-    </a>
   
+    <a href="/2015/01/25/chart-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">iOS报表技术（一）</div>
+    </a>
   
 </nav>
 
