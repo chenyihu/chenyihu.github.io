@@ -62,6 +62,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-chart-3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/08/chart-3/" class="article-date">
+  <time datetime="2015-02-08T10:32:48.000Z" itemprop="datePublished">2月 8 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/08/chart-3/">iOS报表技术（三）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这次讲讲曲线的生成，曲线生成有好几种方法，这里使用贝塞尔曲线，也即谷歌的开源报表库 CorePlot 使用的方法</p>
+<p><a href="https://www.particleincell.com/2012/bezier-splines/" target="_blank" rel="external">https://www.particleincell.com/2012/bezier-splines/</a></p>
+<p>这一方法的核心是算出所有控制点</p>
+<p><img src="/img/chart-5.png" alt="控制点"></p>
+<p>从上图可以看到控制点才是曲线的灵魂，关于贝塞尔曲线的更多内容这里不在赘述，大家可以看百科。</p>
+<p>这样就引发了一个问题，当几个点的间距比例过大就会出现“过量”问题，画出的曲线不是很正常</p>
+<p><img src="/img/chart-4.jpg" alt="过量"></p>
+<p>解决的方法非常简单，就是通过在比例较大的两点之间做一条直线，在这条直线上虚拟几个数据点作为辅助，如此就解决了问题</p>
+<figure class="highlight Objective-C"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CGFloat</span> k = deltaY / deltaX;</div><div class="line"><span class="built_in">CGFloat</span> startX = <span class="number">0</span>;</div><div class="line"><span class="keyword">while</span> ( startX &lt; deltaX ) {</div><div class="line">    <span class="built_in">CGPoint</span> currentPoint = CGPointMake(firstX + startX, round(firstY + k * startX));</div><div class="line">    [interpolationPoints addObject:[NSValue valueWithCGPoint:currentPoint]];</div><div class="line">    startX += interploation;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/02/08/chart-3/" data-id="j8o7n77k8rcs7lb4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-chart-2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/02/01/chart-2/" class="article-date">
@@ -161,7 +207,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -171,6 +217,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/02/08/chart-3/">iOS报表技术（三）</a>
+          </li>
         
           <li>
             <a href="/2015/02/01/chart-2/">iOS报表技术（二）</a>
@@ -186,10 +236,6 @@
         
           <li>
             <a href="/2014/12/28/swift-init/">Swift 构造器总结</a>
-          </li>
-        
-          <li>
-            <a href="/2014/12/21/data-parsing-performance/">使用Sqlite进行日期转换的黑科技</a>
           </li>
         
       </ul>

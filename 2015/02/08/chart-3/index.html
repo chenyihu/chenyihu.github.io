@@ -3,44 +3,34 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Swift 最佳实践 | NSTiger</title>
+  <title>iOS报表技术（三） | NSTiger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文内容总结自 iOSCon2014 李建中老师讲演
-结构
-结构是值类型，所以在任何结构传递的地方都会触发复制，需要谨慎使用
-不要在结构中引用 Class 这样会破坏结构体的轻量和线程安全特性注：这里我还是有点异议的，在享元模式中可以非常好的套用到这个情形
-谨慎使用多层 Class
-数组
-数组和字符串具有可变成本，尽可能使用 let
-对象
-明确指定变量和常量类型，减少类型推断
-尽可能将对象声明为可">
+  <meta name="description" content="这次讲讲曲线的生成，曲线生成有好几种方法，这里使用贝塞尔曲线，也即谷歌的开源报表库 CorePlot 使用的方法
+https://www.particleincell.com/2012/bezier-splines/
+这一方法的核心是算出所有控制点
+
+从上图可以看到控制点才是曲线的灵魂，关于贝塞尔曲线的更多内容这里不在赘述，大家可以看百科。
+这样就引发了一个问题，当几个点的间距比例过大就会出现“过">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift 最佳实践">
-<meta property="og:url" content="http://yoursite.com/2014/12/14/EffectiveSwift/">
+<meta property="og:title" content="iOS报表技术（三）">
+<meta property="og:url" content="http://yoursite.com/2015/02/08/chart-3/">
 <meta property="og:site_name" content="NSTiger">
-<meta property="og:description" content="本文内容总结自 iOSCon2014 李建中老师讲演
-结构
-结构是值类型，所以在任何结构传递的地方都会触发复制，需要谨慎使用
-不要在结构中引用 Class 这样会破坏结构体的轻量和线程安全特性注：这里我还是有点异议的，在享元模式中可以非常好的套用到这个情形
-谨慎使用多层 Class
-数组
-数组和字符串具有可变成本，尽可能使用 let
-对象
-明确指定变量和常量类型，减少类型推断
-尽可能将对象声明为可">
+<meta property="og:description" content="这次讲讲曲线的生成，曲线生成有好几种方法，这里使用贝塞尔曲线，也即谷歌的开源报表库 CorePlot 使用的方法
+https://www.particleincell.com/2012/bezier-splines/
+这一方法的核心是算出所有控制点
+
+从上图可以看到控制点才是曲线的灵魂，关于贝塞尔曲线的更多内容这里不在赘述，大家可以看百科。
+这样就引发了一个问题，当几个点的间距比例过大就会出现“过">
+<meta property="og:image" content="/img/chart-5.png">
+<meta property="og:image" content="/img/chart-4.jpg">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift 最佳实践">
-<meta name="twitter:description" content="本文内容总结自 iOSCon2014 李建中老师讲演
-结构
-结构是值类型，所以在任何结构传递的地方都会触发复制，需要谨慎使用
-不要在结构中引用 Class 这样会破坏结构体的轻量和线程安全特性注：这里我还是有点异议的，在享元模式中可以非常好的套用到这个情形
-谨慎使用多层 Class
-数组
-数组和字符串具有可变成本，尽可能使用 let
-对象
-明确指定变量和常量类型，减少类型推断
-尽可能将对象声明为可">
+<meta name="twitter:title" content="iOS报表技术（三）">
+<meta name="twitter:description" content="这次讲讲曲线的生成，曲线生成有好几种方法，这里使用贝塞尔曲线，也即谷歌的开源报表库 CorePlot 使用的方法
+https://www.particleincell.com/2012/bezier-splines/
+这一方法的核心是算出所有控制点
+
+从上图可以看到控制点才是曲线的灵魂，关于贝塞尔曲线的更多内容这里不在赘述，大家可以看百科。
+这样就引发了一个问题，当几个点的间距比例过大就会出现“过">
 
   
     <link rel="alternative" href="/atom.xml" title="NSTiger" type="application/atom+xml">
@@ -87,10 +77,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-EffectiveSwift" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-chart-3" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/12/14/EffectiveSwift/" class="article-date">
-  <time datetime="2014-12-14T14:32:55.000Z" itemprop="datePublished">12月 14 2014</time>
+    <a href="/2015/02/08/chart-3/" class="article-date">
+  <time datetime="2015-02-08T10:32:48.000Z" itemprop="datePublished">2月 8 2015</time>
 </a>
     
   </div>
@@ -101,7 +91,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Swift 最佳实践
+      iOS报表技术（三）
     </h1>
   
 
@@ -109,30 +99,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本文内容总结自 iOSCon2014 李建中老师讲演</p>
-<h2 id="结构">结构</h2>
-<p>结构是值类型，所以在任何结构传递的地方都会触发复制，需要谨慎使用</p>
-<p>不要在结构中引用 Class 这样会破坏结构体的轻量和线程安全特性<br>注：这里我还是有点异议的，在享元模式中可以非常好的套用到这个情形</p>
-<p>谨慎使用多层 Class</p>
-<h2 id="数组">数组</h2>
-<p>数组和字符串具有可变成本，尽可能使用 let</p>
-<h2 id="对象">对象</h2>
-<p>明确指定变量和常量类型，减少类型推断</p>
-<p>尽可能将对象声明为可选值类型，这样可以显性的去释放内存</p>
-<p>区分值相等 == != 和引用相等 === !===</p>
-<p>谨慎使用类型扩展</p>
-<p>较大自定义类型使用延迟存储属性</p>
-<p>仅在需要释放资源时才定义析构器</p>
-<p>析构过程尽可能短</p>
-<p>尽早将可选类型设置为空</p>
-<p>谨慎创建全局对象</p>
-<h2 id="内存管理">内存管理</h2>
-<p>避免循环强引用</p>
+        <p>这次讲讲曲线的生成，曲线生成有好几种方法，这里使用贝塞尔曲线，也即谷歌的开源报表库 CorePlot 使用的方法</p>
+<p><a href="https://www.particleincell.com/2012/bezier-splines/" target="_blank" rel="external">https://www.particleincell.com/2012/bezier-splines/</a></p>
+<p>这一方法的核心是算出所有控制点</p>
+<p><img src="/img/chart-5.png" alt="控制点"></p>
+<p>从上图可以看到控制点才是曲线的灵魂，关于贝塞尔曲线的更多内容这里不在赘述，大家可以看百科。</p>
+<p>这样就引发了一个问题，当几个点的间距比例过大就会出现“过量”问题，画出的曲线不是很正常</p>
+<p><img src="/img/chart-4.jpg" alt="过量"></p>
+<p>解决的方法非常简单，就是通过在比例较大的两点之间做一条直线，在这条直线上虚拟几个数据点作为辅助，如此就解决了问题</p>
+<figure class="highlight Objective-C"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CGFloat</span> k = deltaY / deltaX;</div><div class="line"><span class="built_in">CGFloat</span> startX = <span class="number">0</span>;</div><div class="line"><span class="keyword">while</span> ( startX &lt; deltaX ) {</div><div class="line">    <span class="built_in">CGPoint</span> currentPoint = CGPointMake(firstX + startX, round(firstY + k * startX));</div><div class="line">    [interpolationPoints addObject:[NSValue valueWithCGPoint:currentPoint]];</div><div class="line">    startX += interploation;</div><div class="line">}</div></pre></td></tr></table></figure>
+
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/12/14/EffectiveSwift/" data-id="p44wfshqhussbxkq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/02/08/chart-3/" data-id="j8o7n77k8rcs7lb4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -141,19 +122,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2014/12/21/data-parsing-performance/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          使用Sqlite进行日期转换的黑科技
-        
-      </div>
-    </a>
   
-  
-    <a href="/2014/12/07/iOSCon/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/02/01/chart-2/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">iOSCon 2014 大会整理</div>
+      <div class="article-nav-title">iOS报表技术（二）</div>
     </a>
   
 </nav>
