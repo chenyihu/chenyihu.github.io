@@ -62,6 +62,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-BHAPI-Desgin-01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/08/BHAPI-Desgin-01/" class="article-date">
+  <time datetime="2015-03-08T14:00:55.000Z" itemprop="datePublished">3月 8 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/08/BHAPI-Desgin-01/">BHAPI设计 (一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前做轻卡的时候完全设计了新的API接口调用方式，经过了2个APP的实践，从可用到好用也迭代了几个版本</p>
+<p>BHAPI 从设计之初就有了以下几个目标：</p>
+<ol>
+<li><p>自由更换网络框架，安全，无痛</p>
+</li>
+<li><p>自动的缓存处理机制，灵活，可靠</p>
+</li>
+<li><p>中间层代码由机器生成，而机器不会犯错，所以代码是高质量的</p>
+</li>
+<li><p>可以方便的伪造假数据用于开发阶段测试</p>
+</li>
+<li><p>Design（即ViewModel）可以在页面销毁时自动cancel掉网络请求</p>
+</li>
+<li><p>全局的错误处理，Loading显示，断线重连，进入前台时自动刷新</p>
+</li>
+</ol>
+<p>总结起来就是，傻瓜，智能</p>
+<p>如今上述几个目标大致完成，所以也打上了 1.0 的 Tag，2.0主要是加入函数响应式编程支持。</p>
+<p>从这周开始就逐步的介绍一下整个设计是如何解决这些问题的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/03/08/BHAPI-Desgin-01/" data-id="p3kfbx04t80bdt85" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-chart-3" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/02/08/chart-3/" class="article-date">
@@ -553,53 +608,6 @@
 
 
   
-    <article id="post-viper" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/11/24/viper/" class="article-date">
-  <time datetime="2014-11-23T17:06:50.000Z" itemprop="datePublished">11月 24 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/11/24/viper/">VIPER 架构探浅</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>通常，我们会使用 MVC 来构建应用，MVC 强调代码的分层原则，按照不同的逻辑分为模型，控制器，视图 三部分，但是这是个很粗糙的分层，所以很多情况下，MVC 并没有被很好的实践，以至于 C 里面塞入了大量的代码，最后变成 Massive View Controller</p>
-<p>在 objc.io 上看到一个非常好的架构，似乎解决了这个问题<br>这个架构称为 VIPER，即 视图，交互器，展示器，实体，路由。</p>
-<ul>
-<li>视图：根据展示器的要求显示界面，并将用户输入反馈给展示器。</li>
-<li>交互器：包含由用例指定的业务逻辑。</li>
-<li>展示器：包含为显示（从交互器接受的内容）做的准备工作的相关视图逻辑，并对用户输入进行反馈（从交互器获取新数据）。</li>
-<li>实体：包含交互器要使用的基本模型对象。</li>
-<li>路由：包含用来描述屏幕显示和显示顺序的导航逻辑。</li>
-</ul>
-<p>实际上是精心设计过的 MVC 架构，只是进行了更好的拆解。</p>
-<p><img src="/img/viper-wireframe.png" alt="viper-wireframe"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/11/24/viper/" data-id="tijp8lcvyt4ln5xr" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
@@ -633,7 +641,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -643,6 +651,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/03/08/BHAPI-Desgin-01/">BHAPI设计 (一)</a>
+          </li>
         
           <li>
             <a href="/2015/02/08/chart-3/">iOS报表技术（三）</a>
@@ -658,10 +670,6 @@
         
           <li>
             <a href="/2015/01/11/2014/">2014总结: Think Less, Do More</a>
-          </li>
-        
-          <li>
-            <a href="/2014/12/28/swift-init/">Swift 构造器总结</a>
           </li>
         
       </ul>

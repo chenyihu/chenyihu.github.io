@@ -3,26 +3,56 @@
 <head>
   <meta charset="utf-8">
   
-  <title>iOSCon 2014 大会整理 | NSTiger</title>
+  <title>BHAPI设计 (一) | NSTiger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="周末去参加了 iOSCon 2014，前两次都是收费的，今年免费。现场大都是新面孔了，65%是2年以下的开发者。
-当然嘉宾也大都是老面孔，像 Tinyfool, 孔祥波。
-其中孔老师一改前几次大会上的风格，完全不再分享技术相关的主题，而是以改变为名讲了很多感悟，结合自己最近几年的经历有很多的共鸣之处。
-Tinyfool 也讲了最近做的一个很酷炫的工具，可以直接用OC来写Android程序，其中更在">
+  <meta name="description" content="之前做轻卡的时候完全设计了新的API接口调用方式，经过了2个APP的实践，从可用到好用也迭代了几个版本
+BHAPI 从设计之初就有了以下几个目标：
+
+自由更换网络框架，安全，无痛
+
+自动的缓存处理机制，灵活，可靠
+
+中间层代码由机器生成，而机器不会犯错，所以代码是高质量的
+
+可以方便的伪造假数据用于开发阶段测试
+
+Design（即ViewModel）可以在页面销毁时自动cancel掉网络请求
+
+全">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOSCon 2014 大会整理">
-<meta property="og:url" content="http://yoursite.com/2014/12/07/iOSCon/">
+<meta property="og:title" content="BHAPI设计 (一)">
+<meta property="og:url" content="http://yoursite.com/2015/03/08/BHAPI-Desgin-01/">
 <meta property="og:site_name" content="NSTiger">
-<meta property="og:description" content="周末去参加了 iOSCon 2014，前两次都是收费的，今年免费。现场大都是新面孔了，65%是2年以下的开发者。
-当然嘉宾也大都是老面孔，像 Tinyfool, 孔祥波。
-其中孔老师一改前几次大会上的风格，完全不再分享技术相关的主题，而是以改变为名讲了很多感悟，结合自己最近几年的经历有很多的共鸣之处。
-Tinyfool 也讲了最近做的一个很酷炫的工具，可以直接用OC来写Android程序，其中更在">
+<meta property="og:description" content="之前做轻卡的时候完全设计了新的API接口调用方式，经过了2个APP的实践，从可用到好用也迭代了几个版本
+BHAPI 从设计之初就有了以下几个目标：
+
+自由更换网络框架，安全，无痛
+
+自动的缓存处理机制，灵活，可靠
+
+中间层代码由机器生成，而机器不会犯错，所以代码是高质量的
+
+可以方便的伪造假数据用于开发阶段测试
+
+Design（即ViewModel）可以在页面销毁时自动cancel掉网络请求
+
+全">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOSCon 2014 大会整理">
-<meta name="twitter:description" content="周末去参加了 iOSCon 2014，前两次都是收费的，今年免费。现场大都是新面孔了，65%是2年以下的开发者。
-当然嘉宾也大都是老面孔，像 Tinyfool, 孔祥波。
-其中孔老师一改前几次大会上的风格，完全不再分享技术相关的主题，而是以改变为名讲了很多感悟，结合自己最近几年的经历有很多的共鸣之处。
-Tinyfool 也讲了最近做的一个很酷炫的工具，可以直接用OC来写Android程序，其中更在">
+<meta name="twitter:title" content="BHAPI设计 (一)">
+<meta name="twitter:description" content="之前做轻卡的时候完全设计了新的API接口调用方式，经过了2个APP的实践，从可用到好用也迭代了几个版本
+BHAPI 从设计之初就有了以下几个目标：
+
+自由更换网络框架，安全，无痛
+
+自动的缓存处理机制，灵活，可靠
+
+中间层代码由机器生成，而机器不会犯错，所以代码是高质量的
+
+可以方便的伪造假数据用于开发阶段测试
+
+Design（即ViewModel）可以在页面销毁时自动cancel掉网络请求
+
+全">
 
   
     <link rel="alternative" href="/atom.xml" title="NSTiger" type="application/atom+xml">
@@ -69,10 +99,10 @@ Tinyfool 也讲了最近做的一个很酷炫的工具，可以直接用OC来写
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-iOSCon" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-BHAPI-Desgin-01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/12/07/iOSCon/" class="article-date">
-  <time datetime="2014-12-07T11:17:46.000Z" itemprop="datePublished">12月 7 2014</time>
+    <a href="/2015/03/08/BHAPI-Desgin-01/" class="article-date">
+  <time datetime="2015-03-08T14:00:55.000Z" itemprop="datePublished">3月 8 2015</time>
 </a>
     
   </div>
@@ -83,7 +113,7 @@ Tinyfool 也讲了最近做的一个很酷炫的工具，可以直接用OC来写
         
   
     <h1 class="article-title" itemprop="name">
-      iOSCon 2014 大会整理
+      BHAPI设计 (一)
     </h1>
   
 
@@ -91,17 +121,30 @@ Tinyfool 也讲了最近做的一个很酷炫的工具，可以直接用OC来写
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>周末去参加了 iOSCon 2014，前两次都是收费的，今年免费。现场大都是新面孔了，65%是2年以下的开发者。</p>
-<p>当然嘉宾也大都是老面孔，像 Tinyfool, 孔祥波。</p>
-<p>其中孔老师一改前几次大会上的风格，完全不再分享技术相关的主题，而是以改变为名讲了很多感悟，结合自己最近几年的经历有很多的共鸣之处。</p>
-<p>Tinyfool 也讲了最近做的一个很酷炫的工具，可以直接用OC来写Android程序，其中更在意的是他的创业经历，讲到了做事的方法，比如一个项目要做一年，有2000个Issue，那么一定要花时间去分解，去砍掉不必要的，在短时间内完成一个可以用的东西出来，精简成300个Issue，第一个月就做一个验证的东西出来，这是很重要的，有所为，有所不为。</p>
-<p>平安保险的蒋越也讲了做智能健康硬件的一些思路，很有启发。首先手机并不是PC的精简，而是人体器官的延伸，这个认识很重要，数据采集只是健康服务的第一步。马云的10年战略就是为了挖个坑，把所有的希望放在了85后身上，10年前85后没钱，所以只能充点Q币，买个绿钻什么的，所以淘宝亏钱，QQ赚钱，10年后。。。移动健康也遵循同样的战略，所以阿里要做健康。</p>
-<p>总体来说这次大会收获很多，期待下次iOS Con。</p>
+        <p>之前做轻卡的时候完全设计了新的API接口调用方式，经过了2个APP的实践，从可用到好用也迭代了几个版本</p>
+<p>BHAPI 从设计之初就有了以下几个目标：</p>
+<ol>
+<li><p>自由更换网络框架，安全，无痛</p>
+</li>
+<li><p>自动的缓存处理机制，灵活，可靠</p>
+</li>
+<li><p>中间层代码由机器生成，而机器不会犯错，所以代码是高质量的</p>
+</li>
+<li><p>可以方便的伪造假数据用于开发阶段测试</p>
+</li>
+<li><p>Design（即ViewModel）可以在页面销毁时自动cancel掉网络请求</p>
+</li>
+<li><p>全局的错误处理，Loading显示，断线重连，进入前台时自动刷新</p>
+</li>
+</ol>
+<p>总结起来就是，傻瓜，智能</p>
+<p>如今上述几个目标大致完成，所以也打上了 1.0 的 Tag，2.0主要是加入函数响应式编程支持。</p>
+<p>从这周开始就逐步的介绍一下整个设计是如何解决这些问题的。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/12/07/iOSCon/" data-id="9hcbwkwroxpic5b2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/03/08/BHAPI-Desgin-01/" data-id="p3kfbx04t80bdt85" class="article-share-link">Share</a>
       
       
     </footer>
@@ -110,19 +153,10 @@ Tinyfool 也讲了最近做的一个很酷炫的工具，可以直接用OC来写
     
 <nav id="article-nav">
   
-    <a href="/2014/12/14/EffectiveSwift/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Swift 最佳实践
-        
-      </div>
-    </a>
   
-  
-    <a href="/2014/11/30/today-extension/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/02/08/chart-3/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Today 扩展实战</div>
+      <div class="article-nav-title">iOS报表技术（三）</div>
     </a>
   
 </nav>
