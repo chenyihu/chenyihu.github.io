@@ -3,44 +3,35 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Swift 最佳实践 | NSTiger</title>
+  <title>BHAPI设计 (二) | NSTiger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文内容总结自 iOSCon2014 李建中老师讲演
-结构
-结构是值类型，所以在任何结构传递的地方都会触发复制，需要谨慎使用
-不要在结构中引用 Class 这样会破坏结构体的轻量和线程安全特性注：这里我还是有点异议的，在享元模式中可以非常好的套用到这个情形
-谨慎使用多层 Class
-数组
-数组和字符串具有可变成本，尽可能使用 let
-对象
-明确指定变量和常量类型，减少类型推断
-尽可能将对象声明为可">
+  <meta name="description" content="缓存系统的设计
+BHAPI 使用了 MKNetworkKit 作为通讯框架。
+MKNetworkKit 的缓存策略相当简单：
+
+MKNetworkEngine 通过 useCache 作为缓存使用与否的总开关；
+一旦开启缓存总开关，MKNetworkOperation 还能够通过 shouldNotCacheResponse 来控制某个请求是否使用缓存；
+缓存激活后，每次请求的结果都会被存在本地文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift 最佳实践">
-<meta property="og:url" content="http://yoursite.com/2014/12/14/EffectiveSwift/">
+<meta property="og:title" content="BHAPI设计 (二)">
+<meta property="og:url" content="http://yoursite.com/2015/03/15/BHAPI-Design-02/">
 <meta property="og:site_name" content="NSTiger">
-<meta property="og:description" content="本文内容总结自 iOSCon2014 李建中老师讲演
-结构
-结构是值类型，所以在任何结构传递的地方都会触发复制，需要谨慎使用
-不要在结构中引用 Class 这样会破坏结构体的轻量和线程安全特性注：这里我还是有点异议的，在享元模式中可以非常好的套用到这个情形
-谨慎使用多层 Class
-数组
-数组和字符串具有可变成本，尽可能使用 let
-对象
-明确指定变量和常量类型，减少类型推断
-尽可能将对象声明为可">
+<meta property="og:description" content="缓存系统的设计
+BHAPI 使用了 MKNetworkKit 作为通讯框架。
+MKNetworkKit 的缓存策略相当简单：
+
+MKNetworkEngine 通过 useCache 作为缓存使用与否的总开关；
+一旦开启缓存总开关，MKNetworkOperation 还能够通过 shouldNotCacheResponse 来控制某个请求是否使用缓存；
+缓存激活后，每次请求的结果都会被存在本地文">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift 最佳实践">
-<meta name="twitter:description" content="本文内容总结自 iOSCon2014 李建中老师讲演
-结构
-结构是值类型，所以在任何结构传递的地方都会触发复制，需要谨慎使用
-不要在结构中引用 Class 这样会破坏结构体的轻量和线程安全特性注：这里我还是有点异议的，在享元模式中可以非常好的套用到这个情形
-谨慎使用多层 Class
-数组
-数组和字符串具有可变成本，尽可能使用 let
-对象
-明确指定变量和常量类型，减少类型推断
-尽可能将对象声明为可">
+<meta name="twitter:title" content="BHAPI设计 (二)">
+<meta name="twitter:description" content="缓存系统的设计
+BHAPI 使用了 MKNetworkKit 作为通讯框架。
+MKNetworkKit 的缓存策略相当简单：
+
+MKNetworkEngine 通过 useCache 作为缓存使用与否的总开关；
+一旦开启缓存总开关，MKNetworkOperation 还能够通过 shouldNotCacheResponse 来控制某个请求是否使用缓存；
+缓存激活后，每次请求的结果都会被存在本地文">
 
   
     <link rel="alternative" href="/atom.xml" title="NSTiger" type="application/atom+xml">
@@ -87,10 +78,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-EffectiveSwift" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-BHAPI-Design-02" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/12/14/EffectiveSwift/" class="article-date">
-  <time datetime="2014-12-14T14:32:55.000Z" itemprop="datePublished">12月 14 2014</time>
+    <a href="/2015/03/15/BHAPI-Design-02/" class="article-date">
+  <time datetime="2015-03-15T15:36:10.000Z" itemprop="datePublished">3月 15 2015</time>
 </a>
     
   </div>
@@ -101,7 +92,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Swift 最佳实践
+      BHAPI设计 (二)
     </h1>
   
 
@@ -109,30 +100,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本文内容总结自 iOSCon2014 李建中老师讲演</p>
-<h2 id="结构">结构</h2>
-<p>结构是值类型，所以在任何结构传递的地方都会触发复制，需要谨慎使用</p>
-<p>不要在结构中引用 Class 这样会破坏结构体的轻量和线程安全特性<br>注：这里我还是有点异议的，在享元模式中可以非常好的套用到这个情形</p>
-<p>谨慎使用多层 Class</p>
-<h2 id="数组">数组</h2>
-<p>数组和字符串具有可变成本，尽可能使用 let</p>
-<h2 id="对象">对象</h2>
-<p>明确指定变量和常量类型，减少类型推断</p>
-<p>尽可能将对象声明为可选值类型，这样可以显性的去释放内存</p>
-<p>区分值相等 == != 和引用相等 === !===</p>
-<p>谨慎使用类型扩展</p>
-<p>较大自定义类型使用延迟存储属性</p>
-<p>仅在需要释放资源时才定义析构器</p>
-<p>析构过程尽可能短</p>
-<p>尽早将可选类型设置为空</p>
-<p>谨慎创建全局对象</p>
-<h2 id="内存管理">内存管理</h2>
-<p>避免循环强引用</p>
+        <h4 id="缓存系统的设计">缓存系统的设计</h4>
+<p>BHAPI 使用了 MKNetworkKit 作为通讯框架。</p>
+<p>MKNetworkKit 的缓存策略相当简单：</p>
+<ol>
+<li>MKNetworkEngine 通过 useCache 作为缓存使用与否的总开关；</li>
+<li>一旦开启缓存总开关，MKNetworkOperation 还能够通过 shouldNotCacheResponse 来控制某个请求是否使用缓存；</li>
+<li>缓存激活后，每次请求的结果都会被存在本地文件中，以 UUID 命名；</li>
+<li>每次请求都会携带 Etag 访问服务器，由 304 等状态码来确定缓存的失效与否；</li>
+</ol>
+<p>在薄荷的项目中，曾经使用了 MK 的这种缓存方式，但是带来了一些问题，原因在于每次请求后不论服务器返回与否都会发生第一次回调，这次回调会把预先产生的文件缓存作为返回数据，接下来进行真正的请求回调，如果不是 304 那么会再次返回一次数据，这样在一些场景下，缓存就导致了奇怪的问题，比如动态刷出了两个一模一样的。</p>
+<p>实际上我们期望的是这样的：假如请求返回的状态码是 304，那么就只返回缓存数据，假如不是，那么就只返回新数据。<br>这样看起来是合理的，但是很多场景下还是需要在服务器返回前提供占位数据，这样就不难理解 MK 这样做的初衷。</p>
+<p>所以 BHAPI 就统和这两种需求，增加了两个控制缓存的开关，useCache 和 usePlaceHolder</p>
+<ol>
+<li>useCache = false 不用缓存</li>
+<li>useCache = true &amp; usePlaceHolder = false 使用缓存，但是需要服务器返回缓存状态后才返回</li>
+<li>useCache = true &amp; usePlaceHolder = true  服务器未返回时就使用文件缓存进行占位</li>
+</ol>
+<p>Done !</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/12/14/EffectiveSwift/" data-id="p44wfshqhussbxkq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/03/15/BHAPI-Design-02/" data-id="2hwgkml6vz09ihpf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -141,19 +131,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2014/12/21/data-parsing-performance/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          使用Sqlite进行日期转换的黑科技
-        
-      </div>
-    </a>
   
-  
-    <a href="/2014/12/07/iOSCon/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/03/08/BHAPI-Desgin-01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">iOSCon 2014 大会整理</div>
+      <div class="article-nav-title">BHAPI设计 (一)</div>
     </a>
   
 </nav>

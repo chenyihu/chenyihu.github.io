@@ -62,6 +62,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-BHAPI-Design-02" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/15/BHAPI-Design-02/" class="article-date">
+  <time datetime="2015-03-15T15:36:10.000Z" itemprop="datePublished">3月 15 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/15/BHAPI-Design-02/">BHAPI设计 (二)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="缓存系统的设计">缓存系统的设计</h4>
+<p>BHAPI 使用了 MKNetworkKit 作为通讯框架。</p>
+<p>MKNetworkKit 的缓存策略相当简单：</p>
+<ol>
+<li>MKNetworkEngine 通过 useCache 作为缓存使用与否的总开关；</li>
+<li>一旦开启缓存总开关，MKNetworkOperation 还能够通过 shouldNotCacheResponse 来控制某个请求是否使用缓存；</li>
+<li>缓存激活后，每次请求的结果都会被存在本地文件中，以 UUID 命名；</li>
+<li>每次请求都会携带 Etag 访问服务器，由 304 等状态码来确定缓存的失效与否；</li>
+</ol>
+<p>在薄荷的项目中，曾经使用了 MK 的这种缓存方式，但是带来了一些问题，原因在于每次请求后不论服务器返回与否都会发生第一次回调，这次回调会把预先产生的文件缓存作为返回数据，接下来进行真正的请求回调，如果不是 304 那么会再次返回一次数据，这样在一些场景下，缓存就导致了奇怪的问题，比如动态刷出了两个一模一样的。</p>
+<p>实际上我们期望的是这样的：假如请求返回的状态码是 304，那么就只返回缓存数据，假如不是，那么就只返回新数据。<br>这样看起来是合理的，但是很多场景下还是需要在服务器返回前提供占位数据，这样就不难理解 MK 这样做的初衷。</p>
+<p>所以 BHAPI 就统和这两种需求，增加了两个控制缓存的开关，useCache 和 usePlaceHolder</p>
+<ol>
+<li>useCache = false 不用缓存</li>
+<li>useCache = true &amp; usePlaceHolder = false 使用缓存，但是需要服务器返回缓存状态后才返回</li>
+<li>useCache = true &amp; usePlaceHolder = true  服务器未返回时就使用文件缓存进行占位</li>
+</ol>
+<p>Done !</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/03/15/BHAPI-Design-02/" data-id="2hwgkml6vz09ihpf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-BHAPI-Desgin-01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/03/08/BHAPI-Desgin-01/" class="article-date">
@@ -546,71 +600,9 @@
 
 
   
-    <article id="post-today-extension" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/11/30/today-extension/" class="article-date">
-  <time datetime="2014-11-30T14:02:40.000Z" itemprop="datePublished">11月 30 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/11/30/today-extension/">Today 扩展实战</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天花了一下午，把Today扩展给集成到了轻卡项目里。</p>
-<p>总结一下</p>
-<ol>
-<li><p>Today 扩展可以使用 AutoLayout 来进行自动布局，并且布局过程是动画的。</p>
-</li>
-<li><p>可以通过 widgetMarginInsetsForProposedMarginInsets 代理方法来设定边界距离。</p>
-</li>
-<li><p>可以通过 preferredContentSize 来设置高度，宽度被自动忽略。</p>
-</li>
-<li><p>widgetPerformUpdateWithCompletionHandler 可以给一个后台刷新准备数据的机会，并提供系统回调。</p>
-</li>
-<li><p>扩展和主应用之间通过共享容器来数据通信，需要注意的是，共享容器在应用删除后仍然会存在。</p>
-</li>
-<li><p>扩展和主应用可以通过共享容器来分享CoreData数据，原理同上。</p>
-</li>
-<li><p>可以通过 framework，或者 CocoaPods 来分享代码。</p>
-</li>
-<li><p>如果是非 framework 方式共享代码，整个应用的体积会增大不少，因为扩展也可以认为是单独的程序。</p>
-</li>
-<li><p>大部分的API都可以被扩展所使用，扩展不能使用的一些API也相应的被标记。</p>
-</li>
-<li><ul>
-<li>(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<uiviewcontrollertransitioncoordinator>)coordinator  是一个隐藏的方法，用来动画设置扩展高度</uiviewcontrollertransitioncoordinator></li>
-</ul>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/11/30/today-extension/" data-id="x9h9sc6pqjselum9" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
     </nav>
   
 </section>
@@ -641,7 +633,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -651,6 +643,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/03/15/BHAPI-Design-02/">BHAPI设计 (二)</a>
+          </li>
         
           <li>
             <a href="/2015/03/08/BHAPI-Desgin-01/">BHAPI设计 (一)</a>
@@ -666,10 +662,6 @@
         
           <li>
             <a href="/2015/01/25/chart-1/">iOS报表技术（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2015/01/11/2014/">2014总结: Think Less, Do More</a>
           </li>
         
       </ul>

@@ -62,6 +62,68 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-today-extension" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/11/30/today-extension/" class="article-date">
+  <time datetime="2014-11-30T14:02:40.000Z" itemprop="datePublished">11月 30 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/11/30/today-extension/">Today 扩展实战</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天花了一下午，把Today扩展给集成到了轻卡项目里。</p>
+<p>总结一下</p>
+<ol>
+<li><p>Today 扩展可以使用 AutoLayout 来进行自动布局，并且布局过程是动画的。</p>
+</li>
+<li><p>可以通过 widgetMarginInsetsForProposedMarginInsets 代理方法来设定边界距离。</p>
+</li>
+<li><p>可以通过 preferredContentSize 来设置高度，宽度被自动忽略。</p>
+</li>
+<li><p>widgetPerformUpdateWithCompletionHandler 可以给一个后台刷新准备数据的机会，并提供系统回调。</p>
+</li>
+<li><p>扩展和主应用之间通过共享容器来数据通信，需要注意的是，共享容器在应用删除后仍然会存在。</p>
+</li>
+<li><p>扩展和主应用可以通过共享容器来分享CoreData数据，原理同上。</p>
+</li>
+<li><p>可以通过 framework，或者 CocoaPods 来分享代码。</p>
+</li>
+<li><p>如果是非 framework 方式共享代码，整个应用的体积会增大不少，因为扩展也可以认为是单独的程序。</p>
+</li>
+<li><p>大部分的API都可以被扩展所使用，扩展不能使用的一些API也相应的被标记。</p>
+</li>
+<li><ul>
+<li>(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<uiviewcontrollertransitioncoordinator>)coordinator  是一个隐藏的方法，用来动画设置扩展高度</uiviewcontrollertransitioncoordinator></li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/11/30/today-extension/" data-id="x9h9sc6pqjselum9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-viper" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/11/24/viper/" class="article-date">
@@ -577,46 +639,9 @@
 
 
   
-    <article id="post-first-blog" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/09/21/first-blog/" class="article-date">
-  <time datetime="2014-09-20T18:54:07.000Z" itemprop="datePublished">9月 21 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/09/21/first-blog/">开写博客了</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>如题。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/09/21/first-blog/" data-id="j4qas4awtztmfan9" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/3/">Next &raquo;</a>
     </nav>
   
 </section>
@@ -647,7 +672,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -657,6 +682,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/03/15/BHAPI-Design-02/">BHAPI设计 (二)</a>
+          </li>
         
           <li>
             <a href="/2015/03/08/BHAPI-Desgin-01/">BHAPI设计 (一)</a>
@@ -672,10 +701,6 @@
         
           <li>
             <a href="/2015/01/25/chart-1/">iOS报表技术（一）</a>
-          </li>
-        
-          <li>
-            <a href="/2015/01/11/2014/">2014总结: Think Less, Do More</a>
           </li>
         
       </ul>
