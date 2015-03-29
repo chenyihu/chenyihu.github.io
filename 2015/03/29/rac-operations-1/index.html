@@ -3,17 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2015/3 | NSTiger</title>
+  <title>RACSignal操作详解(一) | NSTiger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="NSTiger">
-<meta property="og:url" content="http://yoursite.com/archives/2015/03/">
+  <meta name="description" content="RACSignal 作为 函数响应式编程中的重要概念，它的相关操作非常值得深入研究
+行为注入
+123456789- (RACSignal *)doNext:(void (^)(id x))block;- (RACSignal *)doError:(void (^)(NSError *error))block;- (RACSignal *)doCompleted:(void (^)(void))bl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RACSignal操作详解(一)">
+<meta property="og:url" content="http://yoursite.com/2015/03/29/rac-operations-1/">
 <meta property="og:site_name" content="NSTiger">
-<meta property="og:description">
+<meta property="og:description" content="RACSignal 作为 函数响应式编程中的重要概念，它的相关操作非常值得深入研究
+行为注入
+123456789- (RACSignal *)doNext:(void (^)(id x))block;- (RACSignal *)doError:(void (^)(NSError *error))block;- (RACSignal *)doCompleted:(void (^)(void))bl">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NSTiger">
-<meta name="twitter:description">
+<meta name="twitter:title" content="RACSignal操作详解(一)">
+<meta name="twitter:description" content="RACSignal 作为 函数响应式编程中的重要概念，它的相关操作非常值得深入研究
+行为注入
+123456789- (RACSignal *)doNext:(void (^)(id x))block;- (RACSignal *)doError:(void (^)(NSError *error))block;- (RACSignal *)doCompleted:(void (^)(void))bl">
 
   
     <link rel="alternative" href="/atom.xml" title="NSTiger" type="application/atom+xml">
@@ -60,9 +66,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-rac-operations-1" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-rac-operations-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/03/29/rac-operations-1/" class="article-date">
   <time datetime="2015-03-29T10:27:27.000Z" itemprop="datePublished">3月 29 2015</time>
@@ -75,8 +79,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/29/rac-operations-1/">RACSignal操作详解(一)</a>
+    <h1 class="article-title" itemprop="name">
+      RACSignal操作详解(一)
     </h1>
   
 
@@ -107,120 +111,20 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-BHAPI-Design-02" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/15/BHAPI-Design-02/" class="article-date">
-  <time datetime="2015-03-15T15:36:10.000Z" itemprop="datePublished">3月 15 2015</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/15/BHAPI-Design-02/">BHAPI设计 (二)</a>
-    </h1>
+    <a href="/2015/03/15/BHAPI-Design-02/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">BHAPI设计 (二)</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="缓存系统的设计">缓存系统的设计</h4>
-<p>BHAPI 使用了 MKNetworkKit 作为通讯框架。</p>
-<p>MKNetworkKit 的缓存策略相当简单：</p>
-<ol>
-<li>MKNetworkEngine 通过 useCache 作为缓存使用与否的总开关；</li>
-<li>一旦开启缓存总开关，MKNetworkOperation 还能够通过 shouldNotCacheResponse 来控制某个请求是否使用缓存；</li>
-<li>缓存激活后，每次请求的结果都会被存在本地文件中，以 UUID 命名；</li>
-<li>每次请求都会携带 Etag 访问服务器，由 304 等状态码来确定缓存的失效与否；</li>
-</ol>
-<p>在薄荷的项目中，曾经使用了 MK 的这种缓存方式，但是带来了一些问题，原因在于每次请求后不论服务器返回与否都会发生第一次回调，这次回调会把预先产生的文件缓存作为返回数据，接下来进行真正的请求回调，如果不是 304 那么会再次返回一次数据，这样在一些场景下，缓存就导致了奇怪的问题，比如动态刷出了两个一模一样的。</p>
-<p>实际上我们期望的是这样的：假如请求返回的状态码是 304，那么就只返回缓存数据，假如不是，那么就只返回新数据。<br>这样看起来是合理的，但是很多场景下还是需要在服务器返回前提供占位数据，这样就不难理解 MK 这样做的初衷。</p>
-<p>所以 BHAPI 就统和这两种需求，增加了两个控制缓存的开关，useCache 和 usePlaceHolder</p>
-<ol>
-<li>useCache = false 不用缓存</li>
-<li>useCache = true &amp; usePlaceHolder = false 使用缓存，但是需要服务器返回缓存状态后才返回</li>
-<li>useCache = true &amp; usePlaceHolder = true  服务器未返回时就使用文件缓存进行占位</li>
-</ol>
-<p>Done !</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/03/15/BHAPI-Design-02/" data-id="2hwgkml6vz09ihpf" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
 
-
-  
-    <article id="post-BHAPI-Desgin-01" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/08/BHAPI-Desgin-01/" class="article-date">
-  <time datetime="2015-03-08T14:00:55.000Z" itemprop="datePublished">3月 8 2015</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/08/BHAPI-Desgin-01/">BHAPI设计 (一)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>之前做轻卡的时候完全设计了新的API接口调用方式，经过了2个APP的实践，从可用到好用也迭代了几个版本</p>
-<p>BHAPI 从设计之初就有了以下几个目标：</p>
-<ol>
-<li><p>自由更换网络框架，安全，无痛</p>
-</li>
-<li><p>自动的缓存处理机制，灵活，可靠</p>
-</li>
-<li><p>中间层代码由机器生成，而机器不会犯错，所以代码是高质量的</p>
-</li>
-<li><p>可以方便的伪造假数据用于开发阶段测试</p>
-</li>
-<li><p>Design（即ViewModel）可以在页面销毁时自动cancel掉网络请求</p>
-</li>
-<li><p>全局的错误处理，Loading显示，断线重连，进入前台时自动刷新</p>
-</li>
-</ol>
-<p>总结起来就是，傻瓜，智能</p>
-<p>如今上述几个目标大致完成，所以也打上了 1.0 的 Tag，2.0主要是加入函数响应式编程支持。</p>
-<p>从这周开始就逐步的介绍一下整个设计是如何解决这些问题的。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/03/08/BHAPI-Desgin-01/" data-id="p3kfbx04t80bdt85" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-  
 </section>
         
           <aside id="sidebar">
