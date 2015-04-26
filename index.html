@@ -62,6 +62,64 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-classy-intro" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/26/classy-intro/" class="article-date">
+  <time datetime="2015-04-26T11:30:27.000Z" itemprop="datePublished">4月 26 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/26/classy-intro/">使用classy订制UI样式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>苹果的 UIApprearance 给予了我们一个统一订制样式的方案，但实际上在很多情况下并不好用。</p>
+<p>在 UIApprearance 之前实际上已经有一个机智的小伙伴写了个叫 NUI 的类库，里面的原理也很简单，用类CSS定义样式，用HOOK大法劫持住系统的 moveToWindow 等方法，然后使用Visitor（Render）去装修我们的View等元素，整个类库安全无污染，放进去就能用。</p>
+<p>之后又有了很多类似的库，较有影响力的 Classy 就是今天的主角，把玩了一番后觉得很有意思。</p>
+<p>Classy 定义样式的语法相当简单，但又非常强大。</p>
+<p>支持常量</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$main</span>-color = <span class="comment">#35a3ee</span></div><div class="line"><span class="variable">$background</span>-color = <span class="comment">#f4f4f4</span></div><div class="line"><span class="variable">$nav</span>-background-color = <span class="comment">#fcfcfb</span></div><div class="line"></div><div class="line"><span class="variable">$warm</span>-gray-color = <span class="comment">#dfdfdf</span></div><div class="line"><span class="variable">$light</span>-gray-color = <span class="comment">#999999</span></div><div class="line"><span class="variable">$normal</span>-gray-color = <span class="comment">#666666</span></div><div class="line"><span class="variable">$dark</span>-gray-color = <span class="comment">#333333</span></div><div class="line"></div><div class="line"><span class="variable">$h1</span> = <span class="number">36</span></div><div class="line"><span class="variable">$h2</span> = <span class="number">30</span></div><div class="line"><span class="variable">$h3</span> = <span class="number">24</span></div><div class="line"><span class="variable">$h4</span> = <span class="number">18</span></div><div class="line"><span class="variable">$h5</span> = <span class="number">14</span></div><div class="line"><span class="variable">$h6</span> = <span class="number">12</span></div></pre></td></tr></table></figure>
+
+<p>父类匹配，所有父类为 UIViewController 的 ViewController 的 View (有点绕。。)</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">^UIViewController &gt;</span> <span class="constant">UIView</span> {</span></div><div class="line">	background-<span class="symbol">color:</span> <span class="variable">$background</span>-color</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>嵌套对象样式</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">UIButton.return_current {</div><div class="line">	background-color: clear</div><div class="line">	layer: @{</div><div class="line">		corner-radius: 12</div><div class="line">		border-width: 1</div><div class="line">		border-color: $main-color</div><div class="line">	}</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>text attributes 支持，简直神了</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">UINavigationBar {</div><div class="line">	tin-<span class="keyword">color</span>: <span class="variable">$main</span>-<span class="keyword">color</span></div><div class="line">	background-<span class="keyword">color</span>: <span class="variable">$nav</span>-background-<span class="keyword">color</span></div><div class="line">	translucent: NO</div><div class="line">	title-<span class="keyword">text</span>-attributes: @{</div><div class="line">		font: <span class="variable">$title</span>-font</div><div class="line">		foreground-<span class="keyword">color</span>: <span class="variable">$dark</span>-gray-<span class="keyword">color</span></div><div class="line">		shadow: @{</div><div class="line">			shadow-offset: <span class="number">0</span>, -<span class="number">1</span></div><div class="line">			shadow-<span class="keyword">color</span>: <span class="keyword">clear</span></div><div class="line">		}</div><div class="line">	}</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>Live Reload</p>
+<p>实时加载修改，给设计妹子演示的时候，妹子看的很开心啊。</p>
+<p>一些懒人必备的语法，帮助样式的复用，不得不佩服作者的巧妙心思。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">UICollectionView {</div><div class="line">  <span class="attribute">background-color</span> <span class="id">#a2a2a2</span></div><div class="line">  </div><div class="line">  &gt; UICollectionViewCell {</div><div class="line">    clips-to-bounds NO</div><div class="line">    </div><div class="line">    UILabel {</div><div class="line">      <span class="value">text</span>-<span class="attribute">color</span> purple</div><div class="line">      </div><div class="line">      &<span class="class">.title</span> {</div><div class="line">        <span class="attribute">font</span> 20</div><div class="line">      }</div><div class="line">    }</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>当然并不局限于样式，一些订制的功能还需要深入挖掘。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/04/26/classy-intro/" data-id="nwhuq4c1occ1aufh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-rac-operations-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/03/29/rac-operations-1/" class="article-date">
@@ -552,61 +610,6 @@
 
 
   
-    <article id="post-EffectiveSwift" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/12/14/EffectiveSwift/" class="article-date">
-  <time datetime="2014-12-14T14:32:55.000Z" itemprop="datePublished">12月 14 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/14/EffectiveSwift/">Swift 最佳实践</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文内容总结自 iOSCon2014 李建中老师讲演</p>
-<h2 id="结构">结构</h2>
-<p>结构是值类型，所以在任何结构传递的地方都会触发复制，需要谨慎使用</p>
-<p>不要在结构中引用 Class 这样会破坏结构体的轻量和线程安全特性<br>注：这里我还是有点异议的，在享元模式中可以非常好的套用到这个情形</p>
-<p>谨慎使用多层 Class</p>
-<h2 id="数组">数组</h2>
-<p>数组和字符串具有可变成本，尽可能使用 let</p>
-<h2 id="对象">对象</h2>
-<p>明确指定变量和常量类型，减少类型推断</p>
-<p>尽可能将对象声明为可选值类型，这样可以显性的去释放内存</p>
-<p>区分值相等 == != 和引用相等 === !===</p>
-<p>谨慎使用类型扩展</p>
-<p>较大自定义类型使用延迟存储属性</p>
-<p>仅在需要释放资源时才定义析构器</p>
-<p>析构过程尽可能短</p>
-<p>尽早将可选类型设置为空</p>
-<p>谨慎创建全局对象</p>
-<h2 id="内存管理">内存管理</h2>
-<p>避免循环强引用</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/12/14/EffectiveSwift/" data-id="p44wfshqhussbxkq" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -640,7 +643,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -650,6 +653,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/04/26/classy-intro/">使用classy订制UI样式</a>
+          </li>
         
           <li>
             <a href="/2015/03/29/rac-operations-1/">RACSignal操作详解(一)</a>
@@ -665,10 +672,6 @@
         
           <li>
             <a href="/2015/02/08/chart-3/">iOS报表技术（三）</a>
-          </li>
-        
-          <li>
-            <a href="/2015/02/01/chart-2/">iOS报表技术（二）</a>
           </li>
         
       </ul>
