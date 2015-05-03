@@ -62,6 +62,110 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-study-ruby" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/03/study-ruby/" class="article-date">
+  <time datetime="2015-05-03T12:43:25.000Z" itemprop="datePublished">5月 3 2015</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/03/study-ruby/">开始学习Ruby</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一年学习一门新语言是个好习惯，去年是红的发紫的 Swift，今年则是Ruby。</p>
+<p>为什么要学Ruby?</p>
+<ol>
+<li>Ruby可以作为工作的自动化脚本工具，合理使用可以极大的提高工作效率。</li>
+<li>Ruby有非常好的DSL能力，可以更好的实践元编程，有很强的创造力。</li>
+<li>Swift 和 Ruby 有非常多的相似之处，事半功倍</li>
+<li>公司有很好的Ruby氛围。</li>
+</ol>
+<p>目前整理了几本书，慢慢看</p>
+<ol>
+<li>《Programming Ruby》</li>
+<li>《Ruby从入门到精通》</li>
+<li>《松本行宏的程序世界》</li>
+<li>《Ruby Under a Microscope》</li>
+</ol>
+<p>文档工具<br>Dash + Alfred</p>
+<p>文本工具<br>Textmate/Sublime</p>
+<p>看了《Programming Ruby》前两章，做了下笔记：</p>
+<p>Ruby 有一个很好用的交互式控制台 irb</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">%ruby</span></div><div class="line">puts <span class="string">"Hello world"</span></div><div class="line">^<span class="variable">D</span></div><div class="line"><span class="variable">Hello</span> world</div></pre></td></tr></table></figure>
+
+<h4 id="constructor">constructor</h4>
+<p>和 Swift 的 init 方法一样，Ruby的对象使用 new 构造器进行初始化。</p>
+<h4 id="Method">Method</h4>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> </span>say_goodnight(name)</div><div class="line">	result = <span class="string">"Good night, "</span> + name</div><div class="line">	<span class="keyword">return</span> result</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<p>默认的，方法内带有一个隐藏参数 result，这个特性 object-pasical 也有</p>
+<p>语句不需要分号结尾，懒人福音，这也是 Ruby 的哲学所在，能少写代码，就尽量少写。代码越少，意味着思维越清楚。</p>
+<p>表达式插值 expression interpolation</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="literal">result</span> = <span class="string">"Good night, #{name}"</span></div></pre></td></tr></table></figure>
+
+<p>怎么样，想起 Swift 了吧 :)</p>
+<h4 id="变量">变量</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$greeting</span> = <span class="string">"hello"</span> <span class="comment"># 全局变量</span></div><div class="line"><span class="variable">@name</span> = <span class="string">"Prudence"</span>  <span class="comment"># 实例变量</span></div><div class="line"><span class="variable">@@hello</span> = <span class="string">"hello"</span> 	<span class="comment"># 类变量</span></div></pre></td></tr></table></figure>
+
+<h4 id="数组">数组</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a = [<span class="number">1</span>, <span class="string">'cat'</span>, <span class="number">3.14</span>, <span class="keyword">nil</span>]</div></pre></td></tr></table></figure>
+
+<p>这里的 nil 和 Swift 一样，并不是空地址 （0x00000000）而是一个用来指示空的对象。</p>
+<p>快捷创建字符串数组</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a = [ <span class="string">'ant'</span>, <span class="string">'bee'</span>, <span class="string">'cat'</span>, <span class="string">'dog'</span>, <span class="string">'elk'</span>]</div><div class="line"><span class="comment"># 等价于</span></div><div class="line">a = <span class="string">%w( ant bee cat dog elk )</span></div></pre></td></tr></table></figure>
+
+<h4 id="字典">字典</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">inst_section = {</div><div class="line">	<span class="string">'cello'</span> =&gt; <span class="string">'string'</span>,</div><div class="line">	<span class="string">'oboe'</span> 	=&gt; <span class="string">'woodwind'</span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>如果键对应的值为空，则返回nil<br>如果希望默认值为0，则可以</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">histogram </span>=<span class="string"> Hash.new(0)</span></div></pre></td></tr></table></figure>
+
+<h4 id="控制结构">控制结构</h4>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">if count &gt;</span> <span class="number">10</span></span></div><div class="line">	puts <span class="string">"try again"</span></div><div class="line"><span class="keyword">elsif</span> tries == <span class="number">3</span></div><div class="line">	puts <span class="string">"you lose"</span></div><div class="line"><span class="keyword">else</span> </div><div class="line">	puts <span class="string">"enter a number"</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">while</span> weight &lt; <span class="number">100</span> <span class="keyword">and</span> num_pallets &lt;= <span class="number">30</span></div><div class="line">	pallet = next_pallet()</div><div class="line">	weight += pallet.weight</div><div class="line">	num_pallets += <span class="number">1</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+<p>语句修饰符 statement modifiers</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> radiation &gt; <span class="number">3000</span></div><div class="line">	puts <span class="string">"Danger, Will Robinson"</span></div><div class="line"><span class="function"><span class="keyword">end</span></span></div><div class="line"></div><div class="line"><span class="comment"># 等价于</span></div><div class="line"></div><div class="line">puts <span class="string">"Danger, Will Robinson"</span> <span class="keyword">if</span> radiation &gt; <span class="number">3000</span></div></pre></td></tr></table></figure>
+
+<h4 id="正则表达式">正则表达式</h4>
+<p>Ruby内建正则支持，所以具有强大的文本处理能力</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="built_in">line</span> =~ /Perl|Python/</div><div class="line">	puts <span class="string">"..."</span></div><div class="line"><span class="function"><span class="keyword">end</span></span></div><div class="line"></div><div class="line"><span class="built_in">line</span>.sub(/Perl/, <span class="string">'Ruby'</span>)  <span class="comment"># 替换第一个匹配的</span></div><div class="line"><span class="built_in">line</span>.gsub(/Python/, <span class="string">'Ruby'</span>) <span class="comment"># 替换所有的</span></div></pre></td></tr></table></figure>
+
+<h4 id="Block,_迭代器">Block, 迭代器</h4>
+<p>花括号活着 do..end 都可以包裹一段代码作为 Block</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">{ puts <span class="string">"Hello"</span> }</div><div class="line"></div><div class="line"><span class="built_in">do</span></div><div class="line">	club.enroll(person)</div><div class="line">	person.socialize</div><div class="line"><span class="function"><span class="keyword">end</span></span></div></pre></td></tr></table></figure>
+
+<p>有点类似 Swift 的尾行闭包，最后一个参数假如是 block, 则可以写在方法执行体外面作为参数进行传递，而 Ruby 则称为 方法关联，协同例程 </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">animals = %w( <span class="keyword">ant</span> bee cat dog elk )</div><div class="line">animals.<span class="keyword">each</span> { |animal| puts animal }</div></pre></td></tr></table></figure>
+
+<p>再看看 each 方法</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">def <span class="keyword">each</span></div><div class="line">	<span class="keyword">for</span> <span class="keyword">each</span> <span class="keyword">element</span> <span class="comment"># 伪代码</span></div><div class="line">		yield(<span class="keyword">element</span>)</div><div class="line">	<span class="function"><span class="keyword">end</span></span></div><div class="line"><span class="function"><span class="keyword">end</span></span></div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/05/03/study-ruby/" data-id="fwokmnsfrgz2576w" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-classy-intro" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/04/26/classy-intro/" class="article-date">
@@ -530,7 +634,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -540,6 +644,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/05/03/study-ruby/">开始学习Ruby</a>
+          </li>
         
           <li>
             <a href="/2015/04/26/classy-intro/">使用classy订制UI样式</a>
@@ -555,10 +663,6 @@
         
           <li>
             <a href="/2015/03/08/BHAPI-Desgin-01/">BHAPI设计 (一)</a>
-          </li>
-        
-          <li>
-            <a href="/2015/02/08/chart-3/">iOS报表技术（三）</a>
           </li>
         
       </ul>
