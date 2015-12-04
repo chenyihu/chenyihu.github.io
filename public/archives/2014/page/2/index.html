@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives: 2014 | NSTiger</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NSTiger">
+<meta property="og:url" content="http://yoursite.com/archives/2014/page/2/">
+<meta property="og:site_name" content="NSTiger">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NSTiger">
+<meta name="twitter:description">
+
+  
+    <link rel="alternative" href="/atom.xml" title="NSTiger" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">NSTiger</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-asyncdisplaykit" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/20/asyncdisplaykit/" class="article-date">
+  <time datetime="2014-10-19T17:25:24.000Z" itemprop="datePublished">10月 20 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/20/asyncdisplaykit/">AsyncDisplayKit：Paper的异步UI技术(一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>自从上次听了 Facebook 的技术分享之后，对它的异步 UI 技术非常的神往。<br>终于，在几个月后，看到 GitHub - ObjC 排行榜第一名的 AsyncDisplayKit ！</p>
+<p><img src="/img/asyncdisplaykit-logo.png" alt="logo"></p>
+<p>AsyncDisplayKit 是 Facebook 的 Paper 团队在项目研发时的副产品<br>基于以下一些理由</p>
+<ol>
+<li>手势和物理动画相结合 (POP引擎) ，还要有非常流畅的效果。</li>
+<li>丢帧的效果令人沮丧，失败的预期会导致人焦虑。</li>
+<li>触控和动画都是至关重要的，需要60FPS的水准。</li>
+<li>CA 引擎只作用于静态动画，无法处理手势和物理效果动画。</li>
+<li>用户可以在任意状态下操作界面，而静态动画往往是 fire-and-forget.</li>
+<li>当你决定不再需要渲染时Block主线程时，自然而然会想到在设计初始就用一个特殊的架构去实现。</li>
+</ol>
+<p>导致丢帧的因素可能有哪些呢？</p>
+<ol>
+<li>拖延主线程超过5毫秒，将导致丢帧。</li>
+<li><ul>
+<li>layoutSubViews / - layoutSublayers</li>
+</ul>
+</li>
+<li><ul>
+<li>drawRect:</li>
+</ul>
+</li>
+<li>UIView: init / addSubview: / removeFromSuperview / dealloc</li>
+</ol>
+<p>异步UI设计了 Node 这样一个新的数据结构</p>
+<p>Node 是类似于 View 的一种视图对象，但是它的渲染都不在主线程完成，所以一定不会卡住主线程，同时可以转换为 View, 借用官方的一个图来说：</p>
+<p><img src="/img/asyncdisplaykit-node.png" alt="node"></p>
+<p> 今天就到这里，未完待续！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/10/20/asyncdisplaykit/" data-id="kdqf8nf22t0dv538" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-swift-rac2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/12/swift-rac2/" class="article-date">
+  <time datetime="2014-10-12T12:38:54.000Z" itemprop="datePublished">10月 12 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/12/swift-rac2/">在 Swift 项目中集成 ReactiveCocoa (二)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Signals">Signals</h2>
+<p>当然，类似于 subscribeNextAs，其它一些操作的 Swift 版本</p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">RACSignal</span> </span>{</div><div class="line">  </div><div class="line">  <span class="func"><span class="keyword">func</span></span> mapAs&lt;<span class="type">T</span>: <span class="type">AnyObject</span>, <span class="type">U</span>: <span class="type">AnyObject</span>&gt;(mapClosure:(<span class="type">T</span>) -&gt; <span class="type">U</span>) -&gt; <span class="type">RACSignal</span> {</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.<span class="built_in">map</span> {</div><div class="line">      (next: <span class="type">AnyObject</span>!) -&gt; <span class="type">AnyObject</span>! <span class="keyword">in</span></div><div class="line">      <span class="keyword">let</span> nextAsT = next <span class="keyword">as</span> <span class="type">T</span></div><div class="line">      <span class="keyword">return</span> mapClosure(nextAsT)</div><div class="line">    }</div><div class="line">  }</div><div class="line">  </div><div class="line">  <span class="func"><span class="keyword">func</span></span> filterAs&lt;<span class="type">T</span>: <span class="type">AnyObject</span>&gt;(filterClosure:(<span class="type">T</span>) -&gt; <span class="type">Bool</span>) -&gt; <span class="type">RACSignal</span> {</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.<span class="built_in">filter</span> {</div><div class="line">      (next: <span class="type">AnyObject</span>!) -&gt; <span class="type">Bool</span> <span class="keyword">in</span></div><div class="line">      <span class="keyword">let</span> nextAsT = next <span class="keyword">as</span> <span class="type">T</span></div><div class="line">      <span class="keyword">return</span> filterClosure(nextAsT)</div><div class="line">    }</div><div class="line">  }</div><div class="line">  </div><div class="line">  <span class="func"><span class="keyword">func</span></span> doNextAs&lt;<span class="type">T</span>: <span class="type">AnyObject</span>&gt;(nextClosure:(<span class="type">T</span>) -&gt; ()) -&gt; <span class="type">RACSignal</span> {</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.doNext {</div><div class="line">      (next: <span class="type">AnyObject</span>!) -&gt; () <span class="keyword">in</span></div><div class="line">      <span class="keyword">let</span> nextAsT = next <span class="keyword">as</span> <span class="type">T</span></div><div class="line">      nextClosure(nextAsT)</div><div class="line">    }</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>Signal 之间可以联动，如下 </p>
+<figure class="highlight Objective-C"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">RAC(<span class="keyword">self</span><span class="variable">.submitButton</span><span class="variable">.enabled</span>) = [RACSignal combineLatest:@[<span class="keyword">self</span><span class="variable">.usernameField</span><span class="variable">.rac_textSignal</span>, <span class="keyword">self</span><span class="variable">.passwordField</span><span class="variable">.rac_textSignal</span>] reduce:^<span class="keyword">id</span>(<span class="built_in">NSString</span> *userName, <span class="built_in">NSString</span> *password) {</div><div class="line">    <span class="keyword">return</span> @(userName<span class="variable">.length</span> &gt;= <span class="number">6</span> && password<span class="variable">.length</span> &gt;= <span class="number">6</span>);</div><div class="line">}];</div></pre></td></tr></table></figure>
+
+<p>但是 Swift 中不能使用复杂的宏，所以需要把宏转换为一个结构体</p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">RAC</span>  </span>{</div><div class="line">  <span class="keyword">var</span> target : <span class="type">NSObject</span>!</div><div class="line">  <span class="keyword">var</span> keyPath : <span class="type">String</span>!</div><div class="line">  <span class="keyword">var</span> nilValue : <span class="type">AnyObject</span>!</div><div class="line">  </div><div class="line">  <span class="keyword">init</span>(<span class="number">_</span> target: <span class="type">NSObject</span>!, <span class="number">_</span> keyPath: <span class="type">String</span>, nilValue: <span class="type">AnyObject</span>? = <span class="built_in">nil</span>) {</div><div class="line">    <span class="keyword">self</span>.target = target</div><div class="line">    <span class="keyword">self</span>.keyPath = keyPath</div><div class="line">    <span class="keyword">self</span>.nilValue = nilValue</div><div class="line">  }</div><div class="line">  </div><div class="line">  </div><div class="line">  <span class="func"><span class="keyword">func</span></span> assignSignal(signal : <span class="type">RACSignal</span>) {</div><div class="line">    signal.setKeyPath(<span class="keyword">self</span>.keyPath, onObject: <span class="keyword">self</span>.target, nilValue: <span class="keyword">self</span>.nilValue)</div><div class="line">  }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">infix</span> <span class="keyword">operator</span> ~&gt; {}</div><div class="line"><span class="func"><span class="keyword">func</span></span> ~&gt; (signal: <span class="type">RACSignal</span>, rac: <span class="type">RAC</span>) {</div><div class="line">  rac.assignSignal(signal)</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>这样我们就可以很容易写出 Swift 的 RAC 版本</p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">searchTextField.rac_textSignal() ~&gt; <span class="type">RAC</span>(viewModel, <span class="string">"searchText"</span>)</div></pre></td></tr></table></figure>
+
+<p>Combining latest values</p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">RACSignalEx</span> </span>{</div><div class="line">  <span class="keyword">class</span> <span class="func"><span class="keyword">func</span></span> combineLatestAs&lt;<span class="type">T</span>, <span class="type">U</span>, <span class="type">R</span>: <span class="type">AnyObject</span>&gt;(signals:[<span class="type">RACSignal</span>], <span class="built_in">reduce</span>:(<span class="type">T</span>,<span class="type">U</span>) -&gt; <span class="type">R</span>) -&gt; <span class="type">RACSignal</span> {</div><div class="line">    <span class="keyword">return</span> <span class="type">RACSignal</span>.combineLatest(signals).mapAs {</div><div class="line">      (tuple: <span class="type">RACTuple</span>) -&gt; <span class="type">R</span> <span class="keyword">in</span></div><div class="line">      <span class="keyword">return</span> <span class="built_in">reduce</span>(tuple.first <span class="keyword">as</span> <span class="type">T</span>, tuple.second <span class="keyword">as</span> <span class="type">U</span>)</div><div class="line">    }</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="type">RACSignalEx</span>.combineLatestAs([favouritesSignal, commentsSignal]) {</div><div class="line">      (favourites:<span class="type">NSString</span>, comments:<span class="type">NSString</span>) -&gt; <span class="type">FlickrPhotoMetadata</span> <span class="keyword">in</span></div><div class="line">      <span class="keyword">return</span> <span class="type">FlickrPhotoMetadata</span>(favourites: favourites.integerValue, comments: comments.integerValue)</div><div class="line">    }</div></pre></td></tr></table></figure>
+
+<p>RACObserve 监听属性的改变，使用block的KVO</p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="func"><span class="keyword">func</span></span> <span class="type">RACObserve</span>(target: <span class="type">NSObject</span>!, keyPath: <span class="type">String</span>) -&gt; <span class="type">RACSignal</span>  {</div><div class="line">  <span class="keyword">return</span> target.rac_valuesForKeyPath(keyPath, observer: target)</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> validSearchSignal = <span class="type">RACObserve</span>(<span class="keyword">self</span>, <span class="string">"searchText"</span>).mapAs {</div><div class="line">    (text: <span class="type">NSString</span>) -&gt; <span class="type">NSNumber</span> <span class="keyword">in</span></div><div class="line">    <span class="keyword">return</span> text.length &gt; <span class="number">3</span></div><div class="line">  }.distinctUntilChanged();</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/10/12/swift-rac2/" data-id="s5abjojbaxy2t4ju" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-swift-rac" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/28/swift-rac/" class="article-date">
+  <time datetime="2014-09-28T10:07:27.000Z" itemprop="datePublished">9月 28 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/28/swift-rac/">在 Swift 项目中集成 ReactiveCocoa (一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="安装_ReactiveCocoa">安装 ReactiveCocoa</h2>
+<p>最简单的就是使用 Cocoapods 了。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">pod</span> <span class="string">'ReactiveCocoa'</span></div></pre></td></tr></table></figure>
+
+<p>但是由于 ReactiveCocoa 目前尚未对 Swift 做原生支持，所以我们需要使用桥接的模式来使用。把 #import <reactivecocoa reactivecocoa.h=""> 放入 Briging Header。然后我们就可以开心的使用啦。</reactivecocoa></p>
+<h2 id="Sequence">Sequence</h2>
+<p>ReactiveCocoa 对 ObjC 容器类提供了 Sequence 扩展。如下</p>
+<figure class="highlight Objective-C"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">RACSignal *letters = [<span class="string">@"A B C D E F G H I"</span> componentsSeparatedByString:<span class="string">@" "</span>]<span class="variable">.rac_sequence</span><span class="variable">.signal</span>;</div><div class="line"></div><div class="line"><span class="comment">// 依次输出 A B C D…</span></div><div class="line">[letters subscribeNext:^(<span class="built_in">NSString</span> *x) {</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, x);</div><div class="line">}];</div></pre></td></tr></table></figure>
+
+<p>但是到了 Swift 世界，Array 和 NSArray 就分道扬镳了，虽然可以相互转换，但是 NSArray 的扩展，Array 是不能用的，所以就有了下面的代码</p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> signal = <span class="type">NSArray</span>(array: <span class="string">"A B C D"</span>.componentsSeparatedByString(<span class="string">" "</span>)).rac_sequence.signal()</div><div class="line">signal.subscribeNext { (a) -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">    <span class="built_in">println</span>(a)</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h2 id="Signals">Signals</h2>
+<p>由于 Signal 在 OC 中一直返回的是 id 类型，如下</p>
+<figure class="highlight Objective-C"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[<span class="keyword">self</span><span class="variable">.signal</span> subscribeNext:^(<span class="keyword">id</span> x) {</div><div class="line">  <span class="built_in">NSString</span> *text = (<span class="built_in">NSString</span> *)x;</div><div class="line">  <span class="built_in">NSLog</span>(text);</div><div class="line">}];</div></pre></td></tr></table></figure>
+
+<p>id 类型在 OC 中可谓是万能类型，可以随意的转换和发消息。<br>但是 Swift 号称类型安全，就不能这样了，要实现上面的代码，在 Swift 中可能是这样的</p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">self</span>.signal.subscribeNext {</div><div class="line">  (next:<span class="type">AnyObject</span>!) -&gt; () <span class="keyword">in</span></div><div class="line">  <span class="keyword">if</span> <span class="keyword">let</span> text = next <span class="keyword">as</span>? <span class="type">String</span> {</div><div class="line">    <span class="built_in">println</span>(<span class="built_in">countElements</span>(text))</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>但我们的武器箱里又多了一把武器，泛型。</p>
+<p>通过泛型，我们实现一个 RACSignal 的扩展，让其支持任意类型的转换。</p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">RACSignal</span> </span>{  </div><div class="line">  <span class="func"><span class="keyword">func</span></span> subscribeNextAs&lt;<span class="type">T</span>&gt;(nextClosure:(<span class="type">T</span>) -&gt; ()) -&gt; () {</div><div class="line">    <span class="keyword">self</span>.subscribeNext {</div><div class="line">      (next: <span class="type">AnyObject</span>!) -&gt; () <span class="keyword">in</span></div><div class="line">      <span class="keyword">let</span> nextAsT = next <span class="keyword">as</span> <span class="type">T</span></div><div class="line">      nextClosure(nextAsT)</div><div class="line">    }</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>使用 subscribeNextAs 我们甚至可以写出比 OC 更好的代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">self</span><span class="class">.signal</span><span class="class">.subscribeNextAs</span> <span class="rules">{</span></div><div class="line">  <span class="rule">(<span class="attribute">text</span>:<span class="value">String) -&gt; () in</span></span></div><div class="line">  <span class="function">println</span>(<span class="function">countElements</span>(text))</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>今天到这里，未完待续…</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/09/28/swift-rac/" data-id="vu1tzjzy4kk5aus8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift-ReactiveCocoa/">Swift ReactiveCocoa</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-swift-mark" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/22/swift-mark/" class="article-date">
+  <time datetime="2014-09-21T17:27:10.000Z" itemprop="datePublished">9月 22 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/22/swift-mark/">Swift 中的标记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在 Objective-C 中 我们使用 #pragma mark 来分割代码，并且使IDE支持跳转</p>
+<figure class="highlight Objective-C"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor">#pragma mark – Initialization </span></div><div class="line">code <span class="keyword">here</span>...</div><div class="line"> </div><div class="line"><span class="preprocessor">#pragma mark – Table Management</span></div><div class="line">more code <span class="keyword">here</span>...</div></pre></td></tr></table></figure>
+
+<p><img src="/img/xcode-mark.png" alt="xcode-mark"></p>
+<p>那么在 Swift 中我们如何实现类似的效果呢？<br>答案是 // MARK: 这个 XCode6 新引入的特性</p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// MARK: - Initialization</span></div><div class="line">code here...</div><div class="line"> </div><div class="line"><span class="comment">// MARK: - View Management</span></div><div class="line">more code here...</div></pre></td></tr></table></figure>
+
+<p>在 Swift 中我们同样也可以使用 // TODO: 以及 // FIXME:</p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span></span> viewDidLoad()</div><div class="line">{</div><div class="line">  <span class="keyword">super</span>.viewDidLoad()</div><div class="line"> </div><div class="line">  <span class="comment">// TODO: add configuration code</span></div><div class="line">  <span class="keyword">self</span>.configureView()</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p><img src="/img/xcode-todo.png" alt="xcode-todo"></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell</div><div class="line">{</div><div class="line">  <span class="comment">// FIXME: bug 2102</span></div><div class="line">  <span class="keyword">let</span> cell = tableView.dequeueReusableCellWithIdentifier(<span class="string">"Cell"</span>, forIndexPath: indexPath) <span class="keyword">as</span> UITableViewCell</div><div class="line">  <span class="keyword">let</span> <span class="keyword">object</span> = objects[indexPath.row] <span class="keyword">as</span> NSDate</div><div class="line">  cell.textLabel.text = <span class="keyword">object</span>.description</div><div class="line">  <span class="keyword">return</span> cell</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p><img src="/img/xcode-fixme.png" alt="xcode-fixme"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/09/22/swift-mark/" data-id="ntaoe33ezgsp7tfd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XCode/">XCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-first-blog" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/21/first-blog/" class="article-date">
+  <time datetime="2014-09-20T18:54:07.000Z" itemprop="datePublished">9月 21 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/21/first-blog/">开写博客了</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>如题。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/09/21/first-blog/" data-id="j4qas4awtztmfan9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/archives/2014/">&laquo; Prev</a><a class="page-number" href="/archives/2014/">1</a><span class="page-number current">2</span>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift-ReactiveCocoa/">Swift ReactiveCocoa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XCode/">XCode</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Swift-ReactiveCocoa/" style="font-size: NaNpx;">Swift ReactiveCocoa</a><a href="/tags/XCode/" style="font-size: NaNpx;">XCode</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/05/03/study-ruby/">开始学习Ruby</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/26/classy-intro/">使用classy订制UI样式</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/29/rac-operations-1/">RACSignal操作详解(一)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/15/BHAPI-Design-02/">BHAPI设计 (二)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/03/08/BHAPI-Desgin-01/">BHAPI设计 (一)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Tiger Chen<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>

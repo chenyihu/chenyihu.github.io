@@ -62,6 +62,214 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-today-extension" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/11/30/today-extension/" class="article-date">
+  <time datetime="2014-11-30T14:02:40.000Z" itemprop="datePublished">11月 30 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/11/30/today-extension/">Today 扩展实战</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天花了一下午，把Today扩展给集成到了轻卡项目里。</p>
+<p>总结一下</p>
+<ol>
+<li><p>Today 扩展可以使用 AutoLayout 来进行自动布局，并且布局过程是动画的。</p>
+</li>
+<li><p>可以通过 widgetMarginInsetsForProposedMarginInsets 代理方法来设定边界距离。</p>
+</li>
+<li><p>可以通过 preferredContentSize 来设置高度，宽度被自动忽略。</p>
+</li>
+<li><p>widgetPerformUpdateWithCompletionHandler 可以给一个后台刷新准备数据的机会，并提供系统回调。</p>
+</li>
+<li><p>扩展和主应用之间通过共享容器来数据通信，需要注意的是，共享容器在应用删除后仍然会存在。</p>
+</li>
+<li><p>扩展和主应用可以通过共享容器来分享CoreData数据，原理同上。</p>
+</li>
+<li><p>可以通过 framework，或者 CocoaPods 来分享代码。</p>
+</li>
+<li><p>如果是非 framework 方式共享代码，整个应用的体积会增大不少，因为扩展也可以认为是单独的程序。</p>
+</li>
+<li><p>大部分的API都可以被扩展所使用，扩展不能使用的一些API也相应的被标记。</p>
+</li>
+<li><ul>
+<li>(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<uiviewcontrollertransitioncoordinator>)coordinator  是一个隐藏的方法，用来动画设置扩展高度</uiviewcontrollertransitioncoordinator></li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/11/30/today-extension/" data-id="x9h9sc6pqjselum9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-viper" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/11/24/viper/" class="article-date">
+  <time datetime="2014-11-23T17:06:50.000Z" itemprop="datePublished">11月 24 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/11/24/viper/">VIPER 架构探浅</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通常，我们会使用 MVC 来构建应用，MVC 强调代码的分层原则，按照不同的逻辑分为模型，控制器，视图 三部分，但是这是个很粗糙的分层，所以很多情况下，MVC 并没有被很好的实践，以至于 C 里面塞入了大量的代码，最后变成 Massive View Controller</p>
+<p>在 objc.io 上看到一个非常好的架构，似乎解决了这个问题<br>这个架构称为 VIPER，即 视图，交互器，展示器，实体，路由。</p>
+<ul>
+<li>视图：根据展示器的要求显示界面，并将用户输入反馈给展示器。</li>
+<li>交互器：包含由用例指定的业务逻辑。</li>
+<li>展示器：包含为显示（从交互器接受的内容）做的准备工作的相关视图逻辑，并对用户输入进行反馈（从交互器获取新数据）。</li>
+<li>实体：包含交互器要使用的基本模型对象。</li>
+<li>路由：包含用来描述屏幕显示和显示顺序的导航逻辑。</li>
+</ul>
+<p>实际上是精心设计过的 MVC 架构，只是进行了更好的拆解。</p>
+<p><img src="/img/viper-wireframe.png" alt="viper-wireframe"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/11/24/viper/" data-id="tijp8lcvyt4ln5xr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-language-and-mind" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/11/16/language-and-mind/" class="article-date">
+  <time datetime="2014-11-16T10:10:04.000Z" itemprop="datePublished">11月 16 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/11/16/language-and-mind/">语言与思维</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>聊点好玩的。。</p>
+<p>大学时候学过半年的日语，记得当时老师说了一个让人很震惊的事实，小学课本有 2000 个单词，其中 1300 个是日本人发明的，比如 “科学”，“民主”，“电话”，“冰箱”，“民主”，“科长”。太多了，可以说近代汉语日本的贡献非常大，为什么当初日本人要从汉语来解释西方的近代文明而非直接拿取英语的那套呢？这里就需要解释一个问题：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">汉语是远远比其它语言先进的</div></pre></td></tr></table></figure>
+
+<p>很多人自然而然的认同了这个观点，因为毕竟是自己的母语嘛，加上对鸟语的痛恨，可是真要问为什么，可能大多数人都说不出个一二三来。所以现在可以尝试翻译下下面句子到英文：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">树上有鸟</div></pre></td></tr></table></figure>
+
+<p>可能大多数人第一反应就是逐字翻译，但很不幸，这是中文思维。真正的英文思维是翻译不出这句话的，回到初中的英语课堂，一个完整的英语的句子要包含有正确的时态，数量，也即我要知道什么时间，什么地点，树上有几只鸟，才能把这个句子给翻译出来。</p>
+<p>而汉语，这就是个完整的句子，为什么呢？ 因为汉语是上下文可推导的，如果上下文是昨天，那就是昨天树上有鸟，是今天，那就是今天有。这不就是多态吗？ 所以</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">汉语是多态的，是泛化的。</div></pre></td></tr></table></figure>
+
+<p>再从汉字上来说，汉字都是二维的，而英语是一维的。<br>所谓一维就是 ABCD 我用 0123 或是其它符号替换都没问题，所以英语也可以称为密码文。<br>而汉字的组件是有意义的，比如金属 镭 ，大家看到就算之前没有见过这个字，也很容易的读出来并且理解，因为金属表明了属性，雷表明了发音。<br>汉字使用这种模式很容易产生无穷无尽的组合，而英语却不行英语，一个世纪前的文章现在可能已经没法读了，因为一维的组合很有限，而且没有组合意义。英语产生了一个新词，也需要很高的记忆成本，从这个角度上，汉语要比英语好学的多。因为成功的绕开了组合爆炸的问题，掌握了几十个组件后自然而然就理解成千上万的单词。而英语，很多人终其一生都不能理解那些术语，很多人都有阅读障碍。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">汉字是二维的，是所见即所得的。</div></pre></td></tr></table></figure>
+
+<p>令人惊叹的设计，可以说，汉语的发明者一定是一个远远超越时代的程序员。<br>从汉语再说到思维可以发现，中文思维是远远比英文思维抽象层次高的，这也体现在很多地方。<br>比如戏曲里面要骑一匹马，武将就大腿一抬，再跨个马步，就表示自己骑在马上了，而西方的戏剧，一般要牵一匹真马上台。<br>这种思维虽然落后，却产生了近代严谨的科学体系，孰优孰劣就不做过多讨论。<br>最近也看了一下Ruby的那本松本行弘的世界，书里说的一句话也非常认同。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">语言是思维本质的体现</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/11/16/language-and-mind/" data-id="1s2vx9kpmxuxlftd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-SwiftJson" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/11/10/SwiftJson/" class="article-date">
+  <time datetime="2014-11-09T22:08:34.000Z" itemprop="datePublished">11月 10 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/11/10/SwiftJson/">SwiftyJSON 技术分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在 OC 中，得益于开源社区的努力，我们可以很愉快的使用 JSON 格式的数据进行各种功能实现。<br>但是在 Swift 中，JSON的使用成为了一件痛苦的事情，如下</p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> jsonObject : <span class="type">AnyObject</span>! = <span class="type">NSJSONSerialization</span>.<span class="type">JSONObjectWithData</span>(dataFromTwitter, options: <span class="type">NSJSONReadingOptions</span>.<span class="type">MutableContainers</span>, error: <span class="built_in">nil</span>)</div><div class="line"><span class="keyword">if</span> <span class="keyword">let</span> statusesArray = jsonObject <span class="keyword">as</span>? <span class="type">NSArray</span>{</div><div class="line">    <span class="keyword">if</span> <span class="keyword">let</span> aStatus = statusesArray[<span class="number">0</span>] <span class="keyword">as</span>? <span class="type">NSDictionary</span>{</div><div class="line">        <span class="keyword">if</span> <span class="keyword">let</span> user = aStatus[<span class="string">"user"</span>] <span class="keyword">as</span>? <span class="type">NSDictionary</span>{</div><div class="line">            <span class="keyword">if</span> <span class="keyword">let</span> userName = user[<span class="string">"name"</span>] <span class="keyword">as</span>? <span class="type">NSDictionary</span>{</div><div class="line">                <span class="comment">//Finally We Got The Name</span></div><div class="line"></div><div class="line">            }</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>由于可选值类型的出现，再也不能像以前那样愉快的玩耍了 :(<br>你也可以用可选值链 optional chain 来进行操作，但是这样一来，代码基本不能读了</p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> jsonObject : <span class="type">AnyObject</span>! = <span class="type">NSJSONSerialization</span>.<span class="type">JSONObjectWithData</span>(dataFromTwitter, options: <span class="type">NSJSONReadingOptions</span>.<span class="type">MutableContainers</span>, error: <span class="built_in">nil</span>)</div><div class="line"><span class="keyword">if</span> <span class="keyword">let</span> userName = (((jsonObject <span class="keyword">as</span>? <span class="type">NSArray</span>)?[<span class="number">0</span>] <span class="keyword">as</span>? <span class="type">NSDictionary</span>)?[<span class="string">"user"</span>] <span class="keyword">as</span>? <span class="type">NSDictionary</span>)?[<span class="string">"name"</span>]{</div><div class="line">  <span class="comment">//What A disaster above</span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>但是开发者都是很聪明的，很快就有了 Swift 版本的开源库 SwiftJSON<br><a href="https://github.com/SwiftyJSON/SwiftyJSON" target="_blank" rel="external">https://github.com/SwiftyJSON/SwiftyJSON</a><br>透过 SwiftJSON 代码可能是这样的 </p>
+<figure class="highlight Swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> json = <span class="type">JSON</span>(data: dataFromNetworking)</div><div class="line"><span class="keyword">if</span> <span class="keyword">let</span> userName = json[<span class="number">0</span>][<span class="string">"user"</span>][<span class="string">"name"</span>].string{</div><div class="line">  <span class="comment">//就这么简单取到了。</span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>其中，作者重写了所有的下标方法，不论怎么玩都不会崩溃了，妈妈再也不担心我被服务端API绑架了 :)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/11/10/SwiftJson/" data-id="js6rkpkwxsswpgvw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-use-mantle" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/11/03/use-mantle/" class="article-date">
@@ -156,7 +364,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -168,23 +376,23 @@
       <ul>
         
           <li>
-            <a href="/2014/11/03/use-mantle/">使用 Mantle 来序列化对象</a>
+            <a href="/2015/05/03/study-ruby/">开始学习Ruby</a>
           </li>
         
           <li>
-            <a href="/2014/10/21/asyncdisplaykit2/">AsyncDisplayKit：Paper的异步UI技术(二)</a>
+            <a href="/2015/04/26/classy-intro/">使用classy订制UI样式</a>
           </li>
         
           <li>
-            <a href="/2014/10/20/asyncdisplaykit/">AsyncDisplayKit：Paper的异步UI技术(一)</a>
+            <a href="/2015/03/29/rac-operations-1/">RACSignal操作详解(一)</a>
           </li>
         
           <li>
-            <a href="/2014/10/12/swift-rac2/">在 Swift 项目中集成 ReactiveCocoa (二)</a>
+            <a href="/2015/03/15/BHAPI-Design-02/">BHAPI设计 (二)</a>
           </li>
         
           <li>
-            <a href="/2014/09/28/swift-rac/">在 Swift 项目中集成 ReactiveCocoa (一)</a>
+            <a href="/2015/03/08/BHAPI-Desgin-01/">BHAPI设计 (一)</a>
           </li>
         
       </ul>
@@ -199,7 +407,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2014 Tiger Chen<br>
+      &copy; 2015 Tiger Chen<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
